@@ -1,10 +1,10 @@
-import { Fragment } from 'react';
+import * as React from 'react';
 import '../style/App.css';
 
 const App = ({ }) => {
   return (
-    <Fragment>
-    </Fragment>
+    <React.Fragment>
+    </React.Fragment>
   );
 };
 
