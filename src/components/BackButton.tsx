@@ -32,6 +32,7 @@ const BackButton = () => {
   const calendarType = useCalendarStore((state: CalendarStoreInterface) => state.calendarType);
 
   const calendarDayData = useCalendarStore((state: CalendarStoreInterface) => state.calendarDayData);
+  const setCalendarDayData = useCalendarStore((state: CalendarStoreInterface) => state.setCalendarDayData);
   const calendarMonthData = useCalendarStore((state: CalendarStoreInterface) => state.calendarMonthData);
 
   const monthsList = [
