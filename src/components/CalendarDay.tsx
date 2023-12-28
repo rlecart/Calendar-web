@@ -90,6 +90,53 @@ const DayNumberText = styled.div`
   line-height: normal;
 `
 
+const EventsWrapper = styled.div`
+  display: flex;
+  // padding: 2.5rem;
+  flex-direction: column;
+  align-items: center;
+  // gap: 2.5rem;
+  flex: 1 0 0;
+  align-self: stretch;
+`
+const EventsTimeScale = styled.div`
+  display: flex;
+  padding: 2.5rem;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+  flex: 1 0 0;
+  align-self: stretch;
+`
+const EventsTimeScaleLine = styled.div`
+  display: flex;
+  height: 3.8125rem;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 0.625rem;
+  align-self: stretch;
+`
+const TimeWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
+const TimeText = styled.div`
+  color: #FFF;
+  font-family: Inter;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+`
+const TimeLine = styled.div`
+  height: 0.6875rem;
+  flex: 1 0 0;
+
+  border-bottom: 1px solid #545E6C;
+`
+
 const CalendarDay = () => {
   const allCalendarData = Array.from(Array(31), (_, i) => {
     return {
@@ -160,42 +207,61 @@ const CalendarDay = () => {
 
   return (
     <React.Fragment>
-      <CalendarDaysWrapper>
-        <DaysLineWrapper>
-          <DaysLine>
-            {actualWeek?.map((day, index) => (
-              <React.Fragment key={index}>
-                <RenderIf isTrue={calendarDayData.dayOfMonth === day.dayOfMonth}>
-                  <DayNumberSelected>
-                    <DayNumberText>
-                      {day.dayOfMonth}
-                    </DayNumberText>
-                  </DayNumberSelected>
-                </RenderIf>
-
-                <RenderIf isTrue={calendarDayData.dayOfMonth !== day.dayOfMonth}>
-                  <DayNumber onClick={() => handleSelectAnotherDay(day)}>
-                    <DayNumberText>
-                      {day.dayOfMonth}
-                    </DayNumberText>
-                  </DayNumber>
-                </RenderIf>
-
-              </React.Fragment>
-            ))}
-            {actualWeek &&
-              <RenderIf isTrue={actualWeek?.length < 7}>
-                <React.Fragment>
-                  {Array.from(Array(7 - actualWeek?.length), (_, i) => <DayNumberEmpty key={i} />)}
-                </React.Fragment>
+      <DaysLineWrapper>
+        <DaysLine>
+          {actualWeek?.map((day, index) => (
+            <React.Fragment key={index}>
+              <RenderIf isTrue={calendarDayData.dayOfMonth === day.dayOfMonth}>
+                <DayNumberSelected>
+                  <DayNumberText>
+                    {day.dayOfMonth}
+                  </DayNumberText>
+                </DayNumberSelected>
               </RenderIf>
-            }
 
-          </DaysLine>
-        </DaysLineWrapper>
+              <RenderIf isTrue={calendarDayData.dayOfMonth !== day.dayOfMonth}>
+                <DayNumber onClick={() => handleSelectAnotherDay(day)}>
+                  <DayNumberText>
+                    {day.dayOfMonth}
+                  </DayNumberText>
+                </DayNumber>
+              </RenderIf>
+
+            </React.Fragment>
+          ))}
+          {actualWeek &&
+            <RenderIf isTrue={actualWeek?.length < 7}>
+              <React.Fragment>
+                {Array.from(Array(7 - actualWeek?.length), (_, i) => <DayNumberEmpty key={i} />)}
+              </React.Fragment>
+            </RenderIf>
+          }
+
+        </DaysLine>
+      </DaysLineWrapper>
+
+      <CalendarDaysWrapper>
+
+        <EventsWrapper>
+
+          <EventsTimeScale>
+            {Array(24).fill(0).map((_, i) => (
+              <EventsTimeScaleLine key={i}>
+                <TimeWrapper>
+                  <TimeText>
+                    {i < 10 ? `0${i}:00` : `${i}:00`}
+                  </TimeText>
+                </TimeWrapper>
+
+                <TimeLine />
+              </EventsTimeScaleLine>
+            ))}
+          </EventsTimeScale>
+
+        </EventsWrapper>
 
       </CalendarDaysWrapper>
-    </React.Fragment>
+    </React.Fragment >
   );
 };
 
