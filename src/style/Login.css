@@ -1,0 +1,19 @@
+.loginTitle {
+  color: #D3D3D3;
+  font-family: Inter;
+  font-size: 2.125rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 0.27625rem;
+}
+
+.loginDescription {
+  color: rgba(211, 211, 211, 0.60);
+  font-family: Inter;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  letter-spacing: 0.075rem;
+}
