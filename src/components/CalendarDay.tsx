@@ -46,6 +46,11 @@ const DayNumber = styled.button`
   border: 0;
   border-bottom: 1px solid #596474;
   background: #333537;
+
+  &:hover {
+    background: #3e526fc4;
+    border-radius: 1rem 1rem 0 0;
+  }
 `
 const DayNumberSelected = styled.div`
   display: flex;

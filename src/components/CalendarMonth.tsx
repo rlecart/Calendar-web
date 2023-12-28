@@ -37,6 +37,10 @@ const CalendarDayBloc = styled.button`
   border: 0;
   border-right: 1px solid #596474;
   border-bottom: 1px solid #596474;
+
+  &:hover {
+    background: #3e526fc4;
+  }
 `
 const CalendarDayText = styled.div`
   color: #FFF;
