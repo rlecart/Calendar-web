@@ -4,8 +4,11 @@ import WithAuthentication from '../containers/WithAuthentication';
 
 import Header from '../components/Header';
 import WeekDays from '../components/WeekDays';
-import CalendarDays from '../components/CalendarDays';
+import CalendarMonth from '../components/CalendarMonth';
 import styled from 'styled-components';
+import RenderIf from '../components/RenderIf';
+import CalendarDay from '../components/CalendarDay';
+import { CalendarStoreInterface, useCalendarStore } from '../stores/calendarStore';
 
 const CalendarWrapper = styled.div`
   width: 100vw;
@@ -15,6 +18,8 @@ const CalendarWrapper = styled.div`
 `
 
 const Calendar = () => {
+  const calendarType = useCalendarStore((state: CalendarStoreInterface) => state.calendarType);
+
   return (
     <WithAuthentication>
       <CalendarWrapper>
@@ -22,7 +27,18 @@ const Calendar = () => {
 
         <WeekDays />
 
-        <CalendarDays type='month' />
+        {/* <RenderIf isTrue={calendarType === 'year'}>
+          <CalendarYear />
+        </RenderIf> */}
+
+        <RenderIf isTrue={calendarType === 'month'}>
+          <CalendarMonth />
+        </RenderIf>
+
+        <RenderIf isTrue={calendarType === 'day'}>
+          <CalendarDay />
+        </RenderIf>
+
       </CalendarWrapper>
     </WithAuthentication>
   );

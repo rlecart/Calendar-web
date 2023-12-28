@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import RenderIf from './RenderIf';
+import { CalendarStoreInterface, useCalendarStore } from '../stores/calendarStore';
 
 const CalendarDaysWrapper = styled.div`
   display: flex;
@@ -23,7 +24,7 @@ const DayLine = styled.div`
   flex: 1 0 0;
   align-self: stretch;
 `
-const CalendarDay = styled.div`
+const CalendarDayBloc = styled.div`
   display: flex;
   padding: 1.25rem 1.875rem;
   flex-direction: column;
@@ -82,11 +83,7 @@ const CalendarDayEmpty = styled.div`
   border-bottom: 1px solid transparent;
 `
 
-interface CalendarDaysProps {
-  type: string;
-}
-
-const CalendarDays = ({ type }: CalendarDaysProps) => {
+const CalendarDay = () => {
   const allCalendarData = Array.from(Array(31), (_, i) => {
     return {
       dayOfMonth: i + 1,
@@ -132,38 +129,16 @@ const CalendarDays = ({ type }: CalendarDaysProps) => {
     allCalendarData.slice(28, 31),
   ]
 
+  const calendarData = useCalendarStore((state: CalendarStoreInterface) => state.calendarData);
+
+  console.log(calendarData);
+
   return (
     <React.Fragment>
       <CalendarDaysWrapper>
-        {slicedCalendarData.map((week, index) => (
-          <DayLine key={index}>
-            {week.map((day, index) => (
-              <CalendarDay key={index}>
-                <CalendarDayText>
-                  {day.dayOfMonth}
-                </CalendarDayText>
-
-                <CalendarDayData>
-                  {day.data.map((data, index) => (
-                    <CalendarDataBadge key={index} style={{ backgroundColor: `${data.color}`}}>
-                      <CalendarDataBadgeText>
-                        {data.title}
-                      </CalendarDataBadgeText>
-                    </CalendarDataBadge>
-                  ))}
-                </CalendarDayData>
-              </CalendarDay>
-            ))}
-            <RenderIf isTrue={week.length < 7}>
-              <React.Fragment>
-                {Array.from(Array(7 - week.length), (_, i) => <CalendarDayEmpty key={i} />)}
-              </React.Fragment>
-            </RenderIf>
-          </DayLine>
-        ))}
       </CalendarDaysWrapper>
     </React.Fragment>
   );
 };
 
-export default CalendarDays;
+export default CalendarDay;
