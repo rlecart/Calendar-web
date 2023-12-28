@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import RenderIf from './RenderIf';
-import { useCalendarStore, CalendarStoreInterface, CalendarDayInterface } from '../stores/calendarStore';
+import { useCalendarStore, CalendarStoreInterface, CalendarDayDataInterface } from '../stores/calendarStore';
 
 const CalendarDaysWrapper = styled.div`
   display: flex;
@@ -99,6 +99,9 @@ const CalendarMonth = () => {
           endTime: '11:00',
           notes: 'Notes',
           color: 'rgba(160, 74, 61, 0.5)',
+          dayOfMonth: i + 1,
+          month: 3,
+          year: 2023,
         },
         {
           id: 2,
@@ -109,6 +112,9 @@ const CalendarMonth = () => {
           endTime: '11:00',
           notes: 'Notes',
           color: 'rgba(52, 93, 92, 1)',
+          dayOfMonth: i + 1,
+          month: 3,
+          year: 2023,
         },
         {
           id: 3,
@@ -119,6 +125,9 @@ const CalendarMonth = () => {
           endTime: '11:00',
           notes: 'Notes',
           color: 'rgba(94, 94, 55, 1)',
+          dayOfMonth: i + 1,
+          month: 3,
+          year: 2023,
         },
       ]
     }
@@ -131,12 +140,12 @@ const CalendarMonth = () => {
     allCalendarData.slice(28, 31),
   ]
 
-  const setCalendarData = useCalendarStore((state: CalendarStoreInterface) => state.setCalendarData);
+  const setCalendarDayData = useCalendarStore((state: CalendarStoreInterface) => state.setCalendarDayData);
   const setCalendarType = useCalendarStore((state: CalendarStoreInterface) => state.setCalendarType);
 
-  const handleClickBloc = (day: CalendarDayInterface) => {
+  const handleClickBloc = (day: CalendarDayDataInterface) => {
     // console.log(day)
-    setCalendarData(day);
+    setCalendarDayData(day);
     setCalendarType('day')
   }
 

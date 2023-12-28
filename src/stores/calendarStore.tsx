@@ -1,9 +1,8 @@
 import { create } from 'zustand';
 
 export type CalendarTypeType = 'year' | 'month' | 'day';
-export type CalendarDataType = CalendarDayInterface | Array<CalendarDataInterface>;
 
-export interface CalendarDataInterface {
+export interface CalendarEventDataInterface {
   id: number,
   title: string,
   description: string,
@@ -12,30 +11,54 @@ export interface CalendarDataInterface {
   endTime: string,
   notes: string,
   color: string,
-}
-export interface CalendarDayInterface {
   dayOfMonth: number,
   month: number,
   year: number,
-  data: Array<CalendarDataInterface>,
+}
+export interface CalendarDayDataInterface {
+  dayOfMonth: number,
+  month: number,
+  year: number,
+  data: Array<CalendarEventDataInterface>,
+}
+export interface CalendarMonthDataInterface {
+  month: number,
+  year: number,
+  data: Array<CalendarDayDataInterface>,
+}
+export interface CalendarYearDataInterface {
+  year: number,
+  data: Array<CalendarMonthDataInterface>,
 }
 
 export interface CalendarStoreInterface {
   calendarType: CalendarTypeType;
-  calendarData: CalendarDataType;
+  calendarDayData: CalendarDayDataInterface;
+  calendarMonthData: CalendarMonthDataInterface;
+  calendarYearData: CalendarYearDataInterface;
 
   setCalendarType: (newCalendarType: CalendarTypeType) => void;
-  setCalendarData: (newCalendarData: CalendarDataType) => void;
+  setCalendarDayData: (newCalendarDayData: CalendarDayDataInterface) => void;
+  setCalendarMonthData: (newCalendarMonthData: CalendarMonthDataInterface) => void;
+  setCalendarYearData: (newCalendarYearData: CalendarYearDataInterface) => void;
 }
 
 export const useCalendarStore = create((set) => ({
   calendarType: 'month',
-  calendarData: {},
+  calendarDayData: {},
+  calendarMonthData: {},
+  calendarYearData: {},
 
   setCalendarType: (newCalendarType: CalendarTypeType) => set(() => ({
     calendarType: newCalendarType,
   })),
-  setCalendarData: (newCalendarData: CalendarDataType) => set(() => ({
-    calendarData: newCalendarData,
+  setCalendarDayData: (newCalendarDayData: CalendarDayDataInterface) => set(() => ({
+    calendarDayData: newCalendarDayData,
+  })),
+  setCalendarMonthData: (newCalendarMonthData: CalendarMonthDataInterface) => set(() => ({
+    calendarMonthData: newCalendarMonthData,
+  })),
+  setCalendarYearData: (newCalendarYearData: CalendarYearDataInterface) => set(() => ({
+    calendarYearData: newCalendarYearData,
   })),
 }));

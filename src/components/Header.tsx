@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Calendar, ChevronLeft, ChevronRight, Clock } from 'react-feather';
 import styled from 'styled-components';
+import BackButton from './BackButton';
 
 const HeaderWrapper = styled.div`
   display: flex;
@@ -19,24 +20,6 @@ const LeftHeader = styled.div`
   gap: 1rem;
   flex: 1 0 0;
   align-self: stretch;
-`
-const BackButton = styled.div`
-  display: flex;
-  padding: 0.5rem 1.25rem;
-  justify-content: center;
-  align-items: center;
-  gap: 0.25rem;
-
-  border-radius: 0.625rem;
-  background: #3E526F;
-`
-const BackButtonText = styled.div`
-  color: #D3D3D3;
-  font-family: Inter;
-  font-size: 1rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
 `
 const ReturnToTodayButton = styled.div`
   display: flex;
@@ -148,14 +131,7 @@ const Header = () => {
       <HeaderWrapper>
         <LeftHeader>
 
-          {/* COMPOSANT */}
-          <BackButton>
-            <ChevronLeft size={18} color='#D3D3D3' />
-            <BackButtonText>
-              2023
-            </BackButtonText>
-          </BackButton>
-
+          <BackButton />
 
           {/* COMPOSANT */}
           <ReturnToTodayButton>

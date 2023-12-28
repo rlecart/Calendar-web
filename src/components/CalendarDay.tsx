@@ -129,9 +129,9 @@ const CalendarDay = () => {
     allCalendarData.slice(28, 31),
   ]
 
-  const calendarData = useCalendarStore((state: CalendarStoreInterface) => state.calendarData);
+  // const calendarData = useCalendarStore((state: CalendarStoreInterface) => state.calendarData);
 
-  console.log(calendarData);
+  // console.log(calendarData);
 
   return (
     <React.Fragment>
