@@ -24,7 +24,7 @@ const DayLine = styled.div`
   flex: 1 0 0;
   align-self: stretch;
 `
-const CalendarDayBloc = styled.div`
+const CalendarDayBloc = styled.button`
   display: flex;
   padding: 1.25rem 1.875rem;
   flex-direction: column;
@@ -34,6 +34,7 @@ const CalendarDayBloc = styled.div`
   align-self: stretch;
   background: #37393C;
 
+  border: 0;
   border-right: 1px solid #596474;
   border-bottom: 1px solid #596474;
 `

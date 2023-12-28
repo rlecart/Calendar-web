@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import RenderIf from './RenderIf';
-import { CalendarStoreInterface, useCalendarStore } from '../stores/calendarStore';
+import { CalendarDayDataInterface, CalendarStoreInterface, useCalendarStore } from '../stores/calendarStore';
 
 const CalendarDaysWrapper = styled.div`
   display: flex;
@@ -18,75 +18,79 @@ const CalendarDaysWrapper = styled.div`
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 `
-const DayLine = styled.div`
+const DaysLineWrapper = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: flex-start;
-  flex: 1 0 0;
   align-self: stretch;
 `
-const CalendarDayBloc = styled.div`
+const DaysLine = styled.div`
+  display: flex;
+  height: 3.4375rem;
+  justify-content: center;
+  align-items: center;
+  align-self: stretch;
+
+  background: #333537;
+`
+const DayNumber = styled.button`
   display: flex;
   padding: 1.25rem 1.875rem;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  gap: 1.25rem;
   flex: 1 0 0;
   align-self: stretch;
-  background: #37393C;
 
-  border-right: 1px solid #596474;
+  border: 0;
   border-bottom: 1px solid #596474;
+  background: #333537;
 `
-const CalendarDayText = styled.div`
+const DayNumberSelected = styled.div`
+  display: flex;
+  padding: 1.25rem 1.875rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.25rem;
+  flex: 1 0 0;
+  align-self: stretch;
+
+  border-radius: 0.625rem 0.625rem 0rem 0rem;
+  border-top: 1px solid #596474;
+  border-right: 1px solid #596474;
+  border-left: 1px solid #596474;
+  background: #37393C;
+`
+const DayNumberEmpty = styled.div`
+  display: flex;
+  padding: 1.25rem 1.875rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.25rem;
+  flex: 1 0 0;
+  align-self: stretch;
+
+  border-bottom: 1px solid #596474;
+  background: #333537;
+`
+const DayNumberText = styled.div`
   color: #FFF;
   font-family: Inter;
-  font-size: 1rem;
+  font-size: 1.25rem;
   font-style: normal;
   font-weight: 300;
   line-height: normal;
-`
-const CalendarDayData = styled.div`
-  display: flex;
-  align-items: flex-start;
-  align-content: flex-start;
-  gap: 0.3125rem;
-  flex: 1 0 0;
-  align-self: stretch;
-  flex-wrap: wrap;
-`
-const CalendarDataBadge = styled.div`
-  display: flex;
-  padding: 0.3125rem 0.9375rem;
-  align-items: center;
-
-  border-radius: 0.625rem;
-`
-const CalendarDataBadgeText = styled.div`
-  color: #FFF;
-  font-family: Inter;
-  font-size: 0.75rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-`
-const CalendarDayEmpty = styled.div`
-  display: flex;
-  padding: 1.25rem 1.875rem;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1rem;
-  flex: 1 0 0;
-  align-self: stretch;
-  background: #2C2E31;
-
-  border-right: 1px solid transparent;
-  border-bottom: 1px solid transparent;
 `
 
 const CalendarDay = () => {
   const allCalendarData = Array.from(Array(31), (_, i) => {
     return {
       dayOfMonth: i + 1,
+      month: 3,
+      year: 2023,
       data: [
         {
           id: 1,
@@ -97,6 +101,9 @@ const CalendarDay = () => {
           endTime: '11:00',
           notes: 'Notes',
           color: 'rgba(160, 74, 61, 0.5)',
+          dayOfMonth: i + 1,
+          month: 3,
+          year: 2023,
         },
         {
           id: 2,
@@ -107,6 +114,9 @@ const CalendarDay = () => {
           endTime: '11:00',
           notes: 'Notes',
           color: 'rgba(52, 93, 92, 1)',
+          dayOfMonth: i + 1,
+          month: 3,
+          year: 2023,
         },
         {
           id: 3,
@@ -117,6 +127,9 @@ const CalendarDay = () => {
           endTime: '11:00',
           notes: 'Notes',
           color: 'rgba(94, 94, 55, 1)',
+          dayOfMonth: i + 1,
+          month: 3,
+          year: 2023,
         },
       ]
     }
@@ -129,13 +142,53 @@ const CalendarDay = () => {
     allCalendarData.slice(28, 31),
   ]
 
-  // const calendarData = useCalendarStore((state: CalendarStoreInterface) => state.calendarData);
+  const calendarDayData = useCalendarStore((state: CalendarStoreInterface) => state.calendarDayData);
+  const setCalendarDayData = useCalendarStore((state: CalendarStoreInterface) => state.setCalendarDayData);
+
+  const actualWeek = slicedCalendarData.find((week) => week.some((day) => day.dayOfMonth === calendarDayData.dayOfMonth));
 
   // console.log(calendarData);
+
+  const handleSelectAnotherDay = (selectedDay: CalendarDayDataInterface) => {
+    setCalendarDayData(selectedDay);
+  }
 
   return (
     <React.Fragment>
       <CalendarDaysWrapper>
+        <DaysLineWrapper>
+          <DaysLine>
+            {actualWeek?.map((day, index) => (
+              <React.Fragment key={index}>
+                <RenderIf isTrue={calendarDayData.dayOfMonth === day.dayOfMonth}>
+                  <DayNumberSelected>
+                    <DayNumberText>
+                      {day.dayOfMonth}
+                    </DayNumberText>
+                  </DayNumberSelected>
+                </RenderIf>
+
+                <RenderIf isTrue={calendarDayData.dayOfMonth !== day.dayOfMonth}>
+                  <DayNumber onClick={() => handleSelectAnotherDay(day)}>
+                    <DayNumberText>
+                      {day.dayOfMonth}
+                    </DayNumberText>
+                  </DayNumber>
+                </RenderIf>
+
+              </React.Fragment>
+            ))}
+            {actualWeek &&
+              <RenderIf isTrue={actualWeek?.length < 7}>
+                <React.Fragment>
+                  {Array.from(Array(7 - actualWeek?.length), (_, i) => <DayNumberEmpty key={i} />)}
+                </React.Fragment>
+              </RenderIf>
+            }
+
+          </DaysLine>
+        </DaysLineWrapper>
+
       </CalendarDaysWrapper>
     </React.Fragment>
   );
