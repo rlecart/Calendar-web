@@ -6,7 +6,7 @@ interface WithAuthenticationProps {
 }
 
 const WithAuthentication = ({ children }: WithAuthenticationProps) => {
-  const isAuthenticated = false;
+  const isAuthenticated = localStorage.getItem('jwt') !== null;
 
   if (!isAuthenticated)
     return <Navigate to="/login" />

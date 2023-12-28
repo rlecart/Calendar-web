@@ -5,6 +5,7 @@ import './style/App.css';
 
 import {
   createBrowserRouter,
+  Navigate,
   RouterProvider,
 } from "react-router-dom";
 
@@ -23,11 +24,11 @@ const router = createBrowserRouter([
   },
   {
     path: '*',
-    element: <NotFound />,
+    element: <Navigate to='/' />,
   }
 ]);
 
-const App = ({ }) => {
+const App = () => {
   return (
     <React.Fragment>
       <RouterProvider router={router} />

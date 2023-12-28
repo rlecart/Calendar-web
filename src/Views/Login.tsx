@@ -5,6 +5,10 @@ import '../style/Login.css';
 import styled from 'styled-components'
 import { Navigate, useNavigate } from 'react-router-dom';
 
+import Alert from 'react-bootstrap/Alert';
+
+import RenderIf from '../components/RenderIf';
+
 const Background = styled.div`
     width: 100%;
     height: 100vh;
@@ -14,7 +18,7 @@ const Background = styled.div`
 `
 const RightPanel = styled.div`
     display: flex;
-    width: 42%;
+    width: 47%;
     padding: 6.25rem;
     flex-direction: column;
     justify-content: center;
@@ -135,11 +139,30 @@ const Login = () => {
   const [username, setUsername] = React.useState<String>('');
   const [password, setPassword] = React.useState<String>('');
 
+  const [error, setError] = React.useState<String>('');
+
   const handleSubmit = () => {
+    setError('');
+
+    let status = 404;
+    if (username === 'abc')
+      status = 200;
+
+    const fakeRes = {
+      status: status,
+      data: 'fake-jwt',
+    }
+
+    if (fakeRes.status !== 200) {
+      setError('Identifiant ou mot de passe incorrect.');
+      return;
+    }
+
+    localStorage.setItem('jwt', fakeRes.data);
     navigate('/');
   }
 
-  const isAuthenticated = false;
+  const isAuthenticated = localStorage.getItem('jwt') !== null;
 
   if (isAuthenticated)
     return <Navigate to="/" />
@@ -163,6 +186,15 @@ const Login = () => {
           </TitleAndDescription>
 
           <LoginForm>
+            <RenderIf isTrue={error !== ''}>
+              <Alert
+                className='w-100'
+                variant='danger'
+                data-bs-theme="dark"
+              >
+                {error}
+              </Alert>
+            </RenderIf>
             <LoginInputs>
               <LoginInput
                 placeholder='Identifiant'
