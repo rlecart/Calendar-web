@@ -1,12 +1,11 @@
 import * as React from 'react';
 import WithAuthentication from '../containers/WithAuthentication';
+import Header from '../components/Header';
 
 const Calendar = () => {
   return (
     <WithAuthentication>
-      <div>
-        Calendar
-      </div>
+      <Header />
     </WithAuthentication>
   );
 };
