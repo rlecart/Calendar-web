@@ -3,6 +3,7 @@ import { Calendar, ChevronLeft, ChevronRight, Clock } from 'react-feather';
 import styled from 'styled-components';
 import BackButton from './BackButton';
 import ReturnToTodayButton from './ReturnToTodayButton';
+import UserDropdown from './UserDropdown';
 
 const HeaderWrapper = styled.div`
   display: flex;
@@ -86,27 +87,7 @@ const RightHeader = styled.div`
   flex: 1 0 0;
   align-self: stretch;
 `
-const UserDropdown = styled.div`
-  display: flex;
-  width: 3rem;
-  height: 3rem;
-  padding: 0rem 1.25rem;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 0.625rem;
 
-  border-radius: 6.25rem;
-  background: #3680EF;
-`
-const UserDropdownText = styled.div`
-  color: #FFF;
-  font-family: Inter;
-  font-size: 1.25rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-`
 
 const Header = () => {
   return (
@@ -148,12 +129,8 @@ const Header = () => {
 
         <RightHeader>
 
-          {/* COMPOSANT */}
-          <UserDropdown>
-            <UserDropdownText>
-              R
-            </UserDropdownText>
-          </UserDropdown>
+          <UserDropdown />
+
         </RightHeader>
       </HeaderWrapper>
     </React.Fragment>

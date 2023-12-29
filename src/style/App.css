@@ -21,3 +21,11 @@
 .w-40 {
   width: 40% !important;
 }
+
+.dropdown-toggle::after {
+  display: none !important; 
+}
+
+.dropdown-item:active {
+  background-color: #3E526F !important;
+}

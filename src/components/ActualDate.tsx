@@ -53,7 +53,7 @@ const ActualDate = () => {
 
           <RenderIf isTrue={calendarType === 'day'}>
             <React.Fragment>
-              {`${calendarDate.dayOfMonth} ${monthList[calendarDate.month - 1].toLocaleLowerCase()} ${calendarDate.year}`}
+              {`${calendarDate.dayOfMonth} ${monthList[calendarDate.month - 1]?.toLocaleLowerCase()} ${calendarDate.year}`}
             </React.Fragment>
           </RenderIf>
 
