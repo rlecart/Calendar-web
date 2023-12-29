@@ -184,6 +184,14 @@ const EventTime = styled.div`
   line-height: normal;
 `
 
+const ActualTimeCursor = styled.div`
+  position: absolute;
+  left: 6rem;
+  right: 0rem;
+  display: flex;
+  // background: blue;
+`
+
 
 const CalendarDay = () => {
   const allCalendarData = Array.from(Array(31), (_, i) => {
@@ -198,7 +206,7 @@ const CalendarDay = () => {
           description: 'Description',
           isAllDay: false,
           startTime: '00:00',
-          endTime: '03:00',
+          endTime: '03:30',
           notes: 'Notes',
           color: 'rgba(160, 74, 61, 0.5)',
           dayOfMonth: i + 1,
@@ -335,6 +343,15 @@ const CalendarDay = () => {
             ))}
           </EventsListWrapperAbsolute>
 
+          <ActualTimeCursor
+            style={{
+              top: `${(new Date().getHours() * timeLineHeightPerHour) + 52 + (new Date().getMinutes() / 60 * timeLineHeightPerHour) - 9}px`,
+            }}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="1773" height="18" viewBox="0 0 1773 18" fill="none">
+              <path d="M15 7.5L7.57103e-07 0.339746L-7.57103e-07 17.6603L15 10.5L15 7.5ZM1771 10.5002C1771.83 10.5002 1772.5 9.82858 1772.5 9.00015C1772.5 8.17173 1771.83 7.50015 1771 7.50015L1771 10.5002ZM13.5 10.5L1771 10.5002L1771 7.50015L13.5 7.5L13.5 10.5Z" fill="#EF3636" />
+            </svg>
+          </ActualTimeCursor>
         </EventsWrapper>
 
       </CalendarDaysWrapper>
