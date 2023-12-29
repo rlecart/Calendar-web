@@ -56,9 +56,9 @@ export interface CalendarStoreInterface {
 export const useCalendarStore = create((set) => ({
   calendarType: 'month',
   calendarDate: {
-    dayOfMonth: 0,
-    month: 0,
-    year: 0,
+    dayOfMonth: -1,
+    month: -1,
+    year: -1,
   },
   calendarDayData: {},
   calendarMonthData: {},

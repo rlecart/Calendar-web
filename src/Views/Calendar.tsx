@@ -11,6 +11,7 @@ import CalendarDay from '../components/CalendarDay';
 import { CalendarDayDataInterface, CalendarMonthDataInterface, CalendarStoreInterface, CalendarYearDataInterface, useCalendarStore } from '../stores/calendarStore';
 import AddEventButton from '../components/AddEventButton';
 import CalendarSelector from '../components/CalendarSelector';
+import CalendarYear from '../components/CalendarYear';
 
 const CalendarWrapper = styled.div`
   width: 100vw;
@@ -22,12 +23,30 @@ const CalendarWrapper = styled.div`
 const Calendar = () => {
   const calendarType = useCalendarStore((state: CalendarStoreInterface) => state.calendarType);
   const calendarDate = useCalendarStore((state: CalendarStoreInterface) => state.calendarDate);
+  const setCalendarDate = useCalendarStore((state: CalendarStoreInterface) => state.setCalendarDate);
 
   const setCalendarDayData = useCalendarStore((state: CalendarStoreInterface) => state.setCalendarDayData);
   const setCalendarMonthData = useCalendarStore((state: CalendarStoreInterface) => state.setCalendarMonthData);
   const setCalendarYearData = useCalendarStore((state: CalendarStoreInterface) => state.setCalendarYearData);
 
+
   React.useEffect(() => {
+    console.log('ca useEffect []')
+    if (calendarDate.dayOfMonth === -1
+      && calendarDate.month === -1
+      && calendarDate.year === -1) {
+      const today = new Date();
+
+      setCalendarDate({
+        dayOfMonth: today.getDate(),
+        month: today.getMonth() + 1,
+        year: today.getFullYear(),
+      })
+    }
+  }, [])
+
+  React.useEffect(() => {
+    console.log('ca useEffect getCalendarData ')
     getCalendarData();
   }, [calendarType, calendarDate])
 
@@ -253,9 +272,9 @@ const Calendar = () => {
           <CalendarSelector />
         </RenderIf>
 
-        {/* <RenderIf isTrue={calendarType === 'year'}>
+        <RenderIf isTrue={calendarType === 'year'}>
           <CalendarYear />
-        </RenderIf> */}
+        </RenderIf>
 
         <RenderIf isTrue={calendarType === 'month'}>
           <WeekDays />

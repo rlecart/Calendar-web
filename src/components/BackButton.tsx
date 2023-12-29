@@ -65,7 +65,7 @@ const BackButton = () => {
       setCalendarDate({
         dayOfMonth: -1,
         month: -1,
-        year: calendarDayData?.year,
+        year: calendarMonthData?.year,
       })
       setCalendarType('year');
     }
