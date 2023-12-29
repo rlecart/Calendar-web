@@ -151,7 +151,7 @@ const EventsListWrapperAbsolute = styled.div`
 const EventCard = styled.div`
   position: absolute;
   display: flex;
-  padding: 1.875rem;
+  padding: 1.5rem;
   flex-direction: column;
   align-items: center;
   border-radius: 1.25rem;
@@ -170,7 +170,7 @@ const EventElems = styled.div`
 const EventTitle = styled.div`
   color: #FFF;
   font-family: Inter;
-  font-size: 1.625rem;
+  font-size: 1.25rem;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
@@ -178,7 +178,7 @@ const EventTitle = styled.div`
 const EventTime = styled.div`
   color: #D3D3D3;
   font-family: Inter;
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
@@ -278,7 +278,7 @@ const CalendarDay = () => {
           startTime: '11:00',
           endTime: '12:00',
           notes: 'Notes',
-          color: 'rgba(52, 93, 92, 1)',
+          color: 'rgba(52, 93, 92, 0.5)',
           dayOfMonth: i + 1,
           month: 3,
           year: 2023,
@@ -289,9 +289,9 @@ const CalendarDay = () => {
           description: 'Description',
           isAllDay: false,
           startTime: '13:00',
-          endTime: '14:00',
+          endTime: '23:20',
           notes: 'Notes',
-          color: 'rgba(94, 94, 55, 1)',
+          color: 'rgba(94, 94, 55, 0.5)',
           dayOfMonth: i + 1,
           month: 3,
           year: 2023,
@@ -385,7 +385,8 @@ const CalendarDay = () => {
             {calendarDayData.data.map((event: CalendarEventDataInterface, index: number) => (
               <EventCard key={index} style={{
                 backgroundColor: `${event.color}`,
-                top: `${(parseInt(event.startTime.split(':')[0]) * timeLineHeightPerHour) + 52}px`,
+                top: `${(parseInt(event.startTime.split(':')[0]) * timeLineHeightPerHour) + 52 + (parseInt(event.startTime.split(':')[1]) / 60 * timeLineHeightPerHour)}px`,
+                bottom: `${(24 - parseInt(event.endTime.split(':')[0])) * timeLineHeightPerHour - 9 - (parseInt(event.endTime.split(':')[1]) / 60 * timeLineHeightPerHour)}px`
               }}>
                 <EventElems>
                   <EventTitle>
