@@ -206,7 +206,7 @@ const CalendarDay = () => {
           description: 'Description',
           isAllDay: false,
           startTime: '00:00',
-          endTime: '03:30',
+          endTime: '03:00',
           notes: 'Notes',
           color: 'rgba(160, 74, 61, 0.5)',
           dayOfMonth: i + 1,

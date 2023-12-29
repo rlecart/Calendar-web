@@ -9,6 +9,7 @@ import styled from 'styled-components';
 import RenderIf from '../components/RenderIf';
 import CalendarDay from '../components/CalendarDay';
 import { CalendarStoreInterface, useCalendarStore } from '../stores/calendarStore';
+import AddEventButton from '../components/AddEventButton';
 
 const CalendarWrapper = styled.div`
   width: 100vw;
@@ -38,6 +39,8 @@ const Calendar = () => {
         <RenderIf isTrue={calendarType === 'day'}>
           <CalendarDay />
         </RenderIf>
+
+        <AddEventButton />
 
       </CalendarWrapper>
     </WithAuthentication>
