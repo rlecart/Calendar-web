@@ -90,6 +90,17 @@ const RightHeader = styled.div`
 
 
 const Header = () => {
+  const [date, setDate] = React.useState<string>(new Date().toLocaleDateString('fr-FR'));
+  const [time, setTime] = React.useState<string>(new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }));
+
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setTime(new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }));
+      setDate(new Date().toLocaleDateString('fr-FR'));
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <React.Fragment>
       <HeaderWrapper>
@@ -112,14 +123,14 @@ const Header = () => {
             <ActualDate>
               <Calendar size={18} color='#F27A7A' />
               <ActualDateText>
-                27/12/2023
+                {new Date().toLocaleDateString('fr-FR')}
               </ActualDateText>
             </ActualDate>
 
             <ActualHour>
               <Clock size={18} color='#F4DF74' />
               <ActualHourText>
-                21:19
+                {time}
               </ActualHourText>
             </ActualHour>
 
