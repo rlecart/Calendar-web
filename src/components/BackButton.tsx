@@ -28,8 +28,10 @@ const BackButtonText = styled.div`
 `
 
 const BackButton = () => {
-  const setCalendarType = useCalendarStore((state: CalendarStoreInterface) => state.setCalendarType);
   const calendarType = useCalendarStore((state: CalendarStoreInterface) => state.calendarType);
+  const setCalendarType = useCalendarStore((state: CalendarStoreInterface) => state.setCalendarType);
+  const calendarDate = useCalendarStore((state: CalendarStoreInterface) => state.calendarDate);
+  const setCalendarDate = useCalendarStore((state: CalendarStoreInterface) => state.setCalendarDate);
 
   const calendarDayData = useCalendarStore((state: CalendarStoreInterface) => state.calendarDayData);
   const setCalendarDayData = useCalendarStore((state: CalendarStoreInterface) => state.setCalendarDayData);
@@ -51,10 +53,22 @@ const BackButton = () => {
   ];
 
   const handleBackButton = () => {
-    if (calendarType === 'day')
+    if (calendarType === 'day') {
+      setCalendarDate({
+        dayOfMonth: -1,
+        month: calendarDayData?.month,
+        year: calendarDayData?.year,
+      })
       setCalendarType('month');
-    else if (calendarType === 'month')
+    }
+    else if (calendarType === 'month') {
+      setCalendarDate({
+        dayOfMonth: -1,
+        month: -1,
+        year: calendarDayData?.year,
+      })
       setCalendarType('year');
+    }
   }
 
   return (

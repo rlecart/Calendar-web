@@ -6,7 +6,7 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 
 import { Plus, X } from 'react-feather';
-import { CalendarStoreInterface, useCalendarStore } from '../stores/calendarStore';
+import { CalendarDayDataInterface, CalendarStoreInterface, useCalendarStore } from '../stores/calendarStore';
 import RenderIf from './RenderIf';
 import { Alert } from 'react-bootstrap';
 import { ToggleSlider } from 'react-toggle-slider';
@@ -196,6 +196,7 @@ const AddEventButton = () => {
   const [error, setError] = React.useState<string>('');
 
   const setCalendarType = useCalendarStore((state: CalendarStoreInterface) => state.setCalendarType);
+  const setCalendarDate = useCalendarStore((state: CalendarStoreInterface) => state.setCalendarDate);
   const setCalendarDayData = useCalendarStore((state: CalendarStoreInterface) => state.setCalendarDayData);
 
   const handleSubmitNewEvent = () => {
@@ -203,22 +204,74 @@ const AddEventButton = () => {
 
     // requete API
 
-    const fakeRes = {
-      status: 200,
-      data: {
-        dayOfMonth: 28,
-        month: 12,
-        year: 2023,
-        data: [],
-      }
+    const fakeDayData = {
+      dayOfMonth: 1,
+      month: 3,
+      year: 2023,
+      data: [
+        {
+          id: 1,
+          title: 'Sortir le chien',
+          description: 'Description',
+          isAllDay: false,
+          startTime: '00:00',
+          endTime: '03:00',
+          notes: 'Notes',
+          color: 'rgba(160, 74, 61, 0.5)',
+          dayOfMonth: 1,
+          month: 3,
+          year: 2023,
+        },
+        {
+          id: 2,
+          title: 'Sport',
+          description: 'Description',
+          isAllDay: false,
+          startTime: '03:30',
+          endTime: '05:30',
+          notes: 'Notes',
+          color: 'rgba(52, 93, 92, 0.5)',
+          dayOfMonth: 1,
+          month: 3,
+          year: 2023,
+        },
+        {
+          id: 3,
+          title: 'Étudier',
+          description: 'Description',
+          isAllDay: false,
+          startTime: '05:30',
+          endTime: '07:30',
+          notes: 'Notes',
+          color: 'rgba(94, 94, 55, 0.5)',
+          dayOfMonth: 1,
+          month: 3,
+          year: 2023,
+        },
+      ]
     }
 
-    if (fakeRes.status !== 200) {
-      setError(`Une erreur est survenue : ${fakeRes.data}`);
+    interface FakeResDayInterface {
+      status: number,
+      data: CalendarDayDataInterface,
+    }
+    const fakeResDay: FakeResDayInterface = {
+      status: 200,
+      data: fakeDayData,
+    }
+
+    if (fakeResDay.status !== 200) {
+      setError(`Une erreur est survenue : ${fakeResDay.data}`);
       return;
     }
+    setCalendarDayData(fakeResDay.data);
 
-    setCalendarDayData(fakeRes.data);
+    const dateSplitted = date.split('/');
+    setCalendarDate({
+      dayOfMonth: +(dateSplitted[0]),
+      month: +(dateSplitted[1]),
+      year: +(dateSplitted[2]),
+    })
     setCalendarType('day');
 
     resetAllFields();

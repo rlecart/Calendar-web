@@ -194,72 +194,32 @@ const ActualTimeCursor = styled.div`
 
 
 const CalendarDay = () => {
-  const allCalendarData = Array.from(Array(31), (_, i) => {
-    return {
-      dayOfMonth: i + 1,
-      month: 3,
-      year: 2023,
-      data: [
-        {
-          id: 1,
-          title: 'Sortir le chien',
-          description: 'Description',
-          isAllDay: false,
-          startTime: '00:00',
-          endTime: '03:00',
-          notes: 'Notes',
-          color: 'rgba(160, 74, 61, 0.5)',
-          dayOfMonth: i + 1,
-          month: 3,
-          year: 2023,
-        },
-        {
-          id: 2,
-          title: 'Sport',
-          description: 'Description',
-          isAllDay: false,
-          startTime: '03:30',
-          endTime: '05:30',
-          notes: 'Notes',
-          color: 'rgba(52, 93, 92, 0.5)',
-          dayOfMonth: i + 1,
-          month: 3,
-          year: 2023,
-        },
-        {
-          id: 3,
-          title: 'Étudier',
-          description: 'Description',
-          isAllDay: false,
-          startTime: '05:30',
-          endTime: '07:30',
-          notes: 'Notes',
-          color: 'rgba(94, 94, 55, 0.5)',
-          dayOfMonth: i + 1,
-          month: 3,
-          year: 2023,
-        },
-      ]
-    }
-  });
-  const slicedCalendarData = [
-    allCalendarData.slice(0, 7),
-    allCalendarData.slice(7, 14),
-    allCalendarData.slice(14, 21),
-    allCalendarData.slice(21, 28),
-    allCalendarData.slice(28, 31),
-  ]
+  const setCalendarDate = useCalendarStore((state: CalendarStoreInterface) => state.setCalendarDate);
+
+  const calendarMonthData = useCalendarStore((state: CalendarStoreInterface) => state.calendarMonthData);
 
   const calendarDayData = useCalendarStore((state: CalendarStoreInterface) => state.calendarDayData);
   const setCalendarDayData = useCalendarStore((state: CalendarStoreInterface) => state.setCalendarDayData);
 
-  const actualWeek = slicedCalendarData.find((week) => week.some((day) => day.dayOfMonth === calendarDayData.dayOfMonth));
+  const slicedCalendarData = calendarMonthData?.data && [
+    calendarMonthData.data.slice(0, 7),
+    calendarMonthData.data.slice(7, 14),
+    calendarMonthData.data.slice(14, 21),
+    calendarMonthData.data.slice(21, 28),
+    calendarMonthData.data.slice(28, 31),
+  ]
+
+  const actualWeek = slicedCalendarData.find((week) => week.some((day: CalendarDayDataInterface) => day.dayOfMonth === calendarDayData.dayOfMonth));
+  console.log('actual week', actualWeek)
 
   const eventsTimeScaleRef = React.useRef<HTMLDivElement>(null);
 
-  // console.log(calendarData);
-
   const handleSelectAnotherDay = (selectedDay: CalendarDayDataInterface) => {
+    setCalendarDate({
+      dayOfMonth: selectedDay.dayOfMonth,
+      month: selectedDay.month,
+      year: selectedDay.year,
+    })
     setCalendarDayData(selectedDay);
   }
 
@@ -275,7 +235,7 @@ const CalendarDay = () => {
     <React.Fragment>
       <DaysLineWrapper>
         <DaysLine>
-          {actualWeek?.map((day, index) => (
+          {actualWeek?.map((day: CalendarDayDataInterface, index: number) => (
             <React.Fragment key={index}>
               <RenderIf isTrue={calendarDayData.dayOfMonth === day.dayOfMonth}>
                 <DayNumberSelected>
@@ -325,7 +285,7 @@ const CalendarDay = () => {
           </EventsTimeScale>
 
           <EventsListWrapperAbsolute>
-            {calendarDayData.data.map((event: CalendarEventDataInterface, index: number) => (
+            {calendarDayData?.data?.map((event: CalendarEventDataInterface, index: number) => (
               <EventCard key={index} style={{
                 backgroundColor: `${event.color}`,
                 top: `${(parseInt(event.startTime.split(':')[0]) * timeLineHeightPerHour) + 52 + (parseInt(event.startTime.split(':')[1]) / 60 * timeLineHeightPerHour)}px`,

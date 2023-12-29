@@ -136,10 +136,10 @@ const LoginButtonText = styled.p`
 const Login = () => {
   const navigate = useNavigate();
 
-  const [username, setUsername] = React.useState<String>('');
-  const [password, setPassword] = React.useState<String>('');
+  const [username, setUsername] = React.useState<string>('');
+  const [password, setPassword] = React.useState<string>('');
 
-  const [error, setError] = React.useState<String>('');
+  const [error, setError] = React.useState<string>('');
 
   const handleSubmit = () => {
     setError('');

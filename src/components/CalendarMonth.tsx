@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import RenderIf from './RenderIf';
-import { useCalendarStore, CalendarStoreInterface, CalendarDayDataInterface } from '../stores/calendarStore';
+import { useCalendarStore, CalendarStoreInterface, CalendarDayDataInterface, CalendarEventDataInterface } from '../stores/calendarStore';
 
 const CalendarDaysWrapper = styled.div`
   display: flex;
@@ -89,75 +89,34 @@ const CalendarDayEmpty = styled.div`
 `
 
 const CalendarMonth = () => {
-  const allCalendarData = Array.from(Array(31), (_, i) => {
-    return {
-      dayOfMonth: i + 1,
-      month: 3,
-      year: 2023,
-      data: [
-        {
-          id: 1,
-          title: 'Sortir le chien',
-          description: 'Description',
-          isAllDay: false,
-          startTime: '10:00',
-          endTime: '11:00',
-          notes: 'Notes',
-          color: 'rgba(160, 74, 61, 0.5)',
-          dayOfMonth: i + 1,
-          month: 3,
-          year: 2023,
-        },
-        {
-          id: 2,
-          title: 'Sport',
-          description: 'Description',
-          isAllDay: false,
-          startTime: '10:00',
-          endTime: '11:00',
-          notes: 'Notes',
-          color: 'rgba(52, 93, 92, 1)',
-          dayOfMonth: i + 1,
-          month: 3,
-          year: 2023,
-        },
-        {
-          id: 3,
-          title: 'Étudier',
-          description: 'Description',
-          isAllDay: false,
-          startTime: '10:00',
-          endTime: '11:00',
-          notes: 'Notes',
-          color: 'rgba(94, 94, 55, 1)',
-          dayOfMonth: i + 1,
-          month: 3,
-          year: 2023,
-        },
-      ]
-    }
-  });
-  const slicedCalendarData = [
-    allCalendarData.slice(0, 7),
-    allCalendarData.slice(7, 14),
-    allCalendarData.slice(14, 21),
-    allCalendarData.slice(21, 28),
-    allCalendarData.slice(28, 31),
-  ]
-
-  const setCalendarDayData = useCalendarStore((state: CalendarStoreInterface) => state.setCalendarDayData);
+  const setCalendarDate = useCalendarStore((state: CalendarStoreInterface) => state.setCalendarDate);
   const setCalendarType = useCalendarStore((state: CalendarStoreInterface) => state.setCalendarType);
+
+  const calendarMonthData = useCalendarStore((state: CalendarStoreInterface) => state.calendarMonthData);
+  const setCalendarDayData = useCalendarStore((state: CalendarStoreInterface) => state.setCalendarDayData);
+
+  const slicedCalendarData = calendarMonthData?.data && [
+    calendarMonthData.data.slice(0, 7),
+    calendarMonthData.data.slice(7, 14),
+    calendarMonthData.data.slice(14, 21),
+    calendarMonthData.data.slice(21, 28),
+    calendarMonthData.data.slice(28, 31),
+  ]
 
   const handleClickBloc = (day: CalendarDayDataInterface) => {
     // console.log(day)
-    setCalendarDayData(day);
+    setCalendarDate({
+      dayOfMonth: day.dayOfMonth,
+      month: day.month,
+      year: day.year,
+    })
     setCalendarType('day')
   }
 
   return (
     <React.Fragment>
       <CalendarDaysWrapper>
-        {slicedCalendarData.map((week, index) => (
+        {slicedCalendarData?.map((week: Array<CalendarDayDataInterface>, index: number) => (
           <DayLine key={index}>
             {week.map((day, index) => (
               <CalendarDayBloc key={index} onClick={() => handleClickBloc(day)}>
@@ -166,7 +125,7 @@ const CalendarMonth = () => {
                 </CalendarDayText>
 
                 <CalendarDayData>
-                  {day.data.map((data, index) => (
+                  {day.data.map((data: CalendarEventDataInterface, index: number) => (
                     <CalendarDataBadge key={index} style={{ backgroundColor: `${data.color}` }}>
                       <CalendarDataBadgeText>
                         {data.title}
