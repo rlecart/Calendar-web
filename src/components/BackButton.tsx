@@ -69,13 +69,28 @@ const BackButton = () => {
       })
       setCalendarType('year');
     }
+    else if (calendarType === 'year') {
+      setCalendarDate({
+        dayOfMonth: -1,
+        month: -1,
+        year: -1,
+      })
+      setCalendarType('selector');
+    }
   }
 
   return (
-    <RenderIf isTrue={calendarType !== 'year'}>
+    <RenderIf isTrue={calendarType !== 'selector'}>
       <BackButtonWrapper onClick={handleBackButton}>
         <ChevronLeft size={18} color='#D3D3D3' />
         <BackButtonText>
+
+          <RenderIf isTrue={calendarType === 'year'}>
+            <span>
+              {`Sélectionner une période`}
+            </span>
+          </RenderIf>
+
           <RenderIf isTrue={calendarType === 'month'}>
             <span>
               {calendarMonthData?.year}
@@ -87,6 +102,7 @@ const BackButton = () => {
               {calendarDayData?.month !== undefined && calendarDayData?.month !== null && monthsList[calendarDayData?.month - 1]}
             </span>
           </RenderIf>
+
         </BackButtonText>
       </BackButtonWrapper>
     </RenderIf>
