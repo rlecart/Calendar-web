@@ -117,12 +117,12 @@ const CalendarMonth = () => {
 
   return (
     <React.Fragment>
+
+      <ActualDate />
+
+      <WeekDays />
+
       <CalendarDaysWrapper>
-
-        <ActualDate />
-
-        <WeekDays />
-
         {slicedCalendarData?.map((week: Array<CalendarDayDataInterface>, index: number) => (
           <DayLine key={index}>
             {week.map((day, index) => (
