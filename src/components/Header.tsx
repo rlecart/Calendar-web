@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import BackButton from './BackButton';
 import ReturnToTodayButton from './ReturnToTodayButton';
 import UserDropdown from './UserDropdown';
+import { useNavigate } from 'react-router-dom';
 
 const HeaderWrapper = styled.div`
   display: flex;
@@ -23,13 +24,16 @@ const LeftHeader = styled.div`
   flex: 1 0 0;
   align-self: stretch;
 `
-const MidHeader = styled.div`
+const MidHeader = styled.button`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 0.35rem;
   align-self: stretch;
+
+  border: 0;
+  background: transparent;
 `
 const HeaderTitle = styled.div`
   display: flex;
@@ -90,6 +94,8 @@ const RightHeader = styled.div`
 
 
 const Header = () => {
+  const navigate = useNavigate();
+  
   const [date, setDate] = React.useState<string>(new Date().toLocaleDateString('fr-FR'));
   const [time, setTime] = React.useState<string>(new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }));
 
@@ -112,7 +118,7 @@ const Header = () => {
 
         </LeftHeader>
 
-        <MidHeader>
+        <MidHeader onClick={() => navigate('/')}>
           <HeaderTitle>
             <HeaderTitleText>
               Calendar Planer
