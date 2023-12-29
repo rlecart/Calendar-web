@@ -186,6 +186,7 @@ const AddEventButton = () => {
   };
 
   const [title, setTitle] = React.useState<string>('');
+  const [color, setColor] = React.useState<string>('');
   const [isAllDay, setIsAllDay] = React.useState<boolean>(false);
   const [date, setDate] = React.useState<string>('');
   const [startTime, setStartTime] = React.useState<string>('');
@@ -271,6 +272,12 @@ const AddEventButton = () => {
               placeholder='Titre'
               value={title}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTitle(e.target.value)}
+            />
+
+            <FormInputText
+              placeholder='Couleur'
+              value={color}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setColor(e.target.value)}
             />
 
             <FormGroup>
