@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import RenderIf from './RenderIf';
-import { CalendarDayDataInterface, CalendarStoreInterface, useCalendarStore } from '../stores/calendarStore';
+import { CalendarDayDataInterface, CalendarEventDataInterface, CalendarStoreInterface, useCalendarStore } from '../stores/calendarStore';
 
 const CalendarDaysWrapper = styled.div`
   display: flex;
@@ -98,6 +98,7 @@ const EventsWrapper = styled.div`
   // gap: 2.5rem;
   flex: 1 0 0;
   align-self: stretch;
+  position: relative;
 `
 const EventsTimeScale = styled.div`
   display: flex;
@@ -137,6 +138,53 @@ const TimeLine = styled.div`
   border-bottom: 1px solid #545E6C;
 `
 
+const EventsListWrapperAbsolute = styled.div`
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    padding-left: 8rem;
+    padding-right: 5rem;
+    padding-top: 3.25rem;
+`
+const EventCard = styled.div`
+  position: absolute;
+  display: flex;
+  padding: 1.875rem;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 1.25rem;
+  right: 5rem;
+  left: 8rem;
+  
+  background: rgba(160, 74, 61, 0.50);
+`
+const EventElems = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.625rem;
+  align-self: stretch;
+`
+const EventTitle = styled.div`
+  color: #FFF;
+  font-family: Inter;
+  font-size: 1.625rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+`
+const EventTime = styled.div`
+  color: #D3D3D3;
+  font-family: Inter;
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+`
+
+
 const CalendarDay = () => {
   const allCalendarData = Array.from(Array(31), (_, i) => {
     return {
@@ -149,8 +197,73 @@ const CalendarDay = () => {
           title: 'Sortir le chien',
           description: 'Description',
           isAllDay: false,
-          startTime: '10:00',
-          endTime: '11:00',
+          startTime: '00:00',
+          endTime: '01:00',
+          notes: 'Notes',
+          color: 'rgba(160, 74, 61, 0.5)',
+          dayOfMonth: i + 1,
+          month: 3,
+          year: 2023,
+        },
+        {
+          id: 1,
+          title: 'Sortir le chien',
+          description: 'Description',
+          isAllDay: false,
+          startTime: '01:00',
+          endTime: '02:00',
+          notes: 'Notes',
+          color: 'rgba(160, 74, 61, 0.5)',
+          dayOfMonth: i + 1,
+          month: 3,
+          year: 2023,
+        },
+        {
+          id: 1,
+          title: 'Sortir le chien',
+          description: 'Description',
+          isAllDay: false,
+          startTime: '02:00',
+          endTime: '03:00',
+          notes: 'Notes',
+          color: 'rgba(160, 74, 61, 0.5)',
+          dayOfMonth: i + 1,
+          month: 3,
+          year: 2023,
+        },
+        {
+          id: 1,
+          title: 'Sortir le chien',
+          description: 'Description',
+          isAllDay: false,
+          startTime: '03:00',
+          endTime: '04:00',
+          notes: 'Notes',
+          color: 'rgba(160, 74, 61, 0.5)',
+          dayOfMonth: i + 1,
+          month: 3,
+          year: 2023,
+        },
+        {
+          id: 1,
+          title: 'Sortir le chien',
+          description: 'Description',
+          isAllDay: false,
+          startTime: '04:00',
+          endTime: '05:00',
+          notes: 'Notes',
+          color: 'rgba(160, 74, 61, 0.5)',
+          dayOfMonth: i + 1,
+          month: 3,
+          year: 2023,
+        },
+        {
+          id: 1,
+          title: 'Sortir le chien',
+          description: 'Description',
+          isAllDay: false,
+          startTime: '05:00',
+          endTime: '06:00',
           notes: 'Notes',
           color: 'rgba(160, 74, 61, 0.5)',
           dayOfMonth: i + 1,
@@ -162,8 +275,8 @@ const CalendarDay = () => {
           title: 'Sport',
           description: 'Description',
           isAllDay: false,
-          startTime: '10:00',
-          endTime: '11:00',
+          startTime: '11:00',
+          endTime: '12:00',
           notes: 'Notes',
           color: 'rgba(52, 93, 92, 1)',
           dayOfMonth: i + 1,
@@ -175,8 +288,8 @@ const CalendarDay = () => {
           title: 'Étudier',
           description: 'Description',
           isAllDay: false,
-          startTime: '10:00',
-          endTime: '11:00',
+          startTime: '13:00',
+          endTime: '14:00',
           notes: 'Notes',
           color: 'rgba(94, 94, 55, 1)',
           dayOfMonth: i + 1,
@@ -199,11 +312,21 @@ const CalendarDay = () => {
 
   const actualWeek = slicedCalendarData.find((week) => week.some((day) => day.dayOfMonth === calendarDayData.dayOfMonth));
 
+  const eventsTimeScaleRef = React.useRef<HTMLDivElement>(null);
+
   // console.log(calendarData);
 
   const handleSelectAnotherDay = (selectedDay: CalendarDayDataInterface) => {
     setCalendarDayData(selectedDay);
   }
+
+  const [timeLineHeightPerHour, setTimeLineHeightPerHour] = React.useState<number>(0);
+
+  React.useEffect(() => {
+    const timeLineHeight = eventsTimeScaleRef.current?.clientHeight
+    setTimeLineHeightPerHour(timeLineHeight ? (timeLineHeight - 40) / 24 : 0);
+    console.log(timeLineHeightPerHour)
+  }, [eventsTimeScaleRef?.current?.clientHeight])
 
   return (
     <React.Fragment>
@@ -244,7 +367,7 @@ const CalendarDay = () => {
 
         <EventsWrapper>
 
-          <EventsTimeScale>
+          <EventsTimeScale ref={eventsTimeScaleRef}>
             {Array(24).fill(0).map((_, i) => (
               <EventsTimeScaleLine key={i}>
                 <TimeWrapper>
@@ -257,6 +380,24 @@ const CalendarDay = () => {
               </EventsTimeScaleLine>
             ))}
           </EventsTimeScale>
+
+          <EventsListWrapperAbsolute>
+            {calendarDayData.data.map((event: CalendarEventDataInterface, index: number) => (
+              <EventCard key={index} style={{
+                backgroundColor: `${event.color}`,
+                top: `${(parseInt(event.startTime.split(':')[0]) * timeLineHeightPerHour) + 52}px`,
+              }}>
+                <EventElems>
+                  <EventTitle>
+                    {event.title}
+                  </EventTitle>
+                  <EventTime>
+                    {event.startTime} - {event.endTime}
+                  </EventTime>
+                </EventElems>
+              </EventCard>
+            ))}
+          </EventsListWrapperAbsolute>
 
         </EventsWrapper>
 
