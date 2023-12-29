@@ -2,6 +2,8 @@ import * as React from 'react';
 import styled from 'styled-components';
 import RenderIf from './RenderIf';
 import { useCalendarStore, CalendarStoreInterface, CalendarDayDataInterface, CalendarEventDataInterface } from '../stores/calendarStore';
+import ActualDate from './ActualDate';
+import WeekDays from './WeekDays';
 
 const CalendarDaysWrapper = styled.div`
   display: flex;
@@ -116,6 +118,11 @@ const CalendarMonth = () => {
   return (
     <React.Fragment>
       <CalendarDaysWrapper>
+
+        <ActualDate />
+
+        <WeekDays />
+
         {slicedCalendarData?.map((week: Array<CalendarDayDataInterface>, index: number) => (
           <DayLine key={index}>
             {week.map((day, index) => (

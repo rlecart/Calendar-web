@@ -2,6 +2,8 @@ import * as React from 'react';
 import styled from 'styled-components';
 import RenderIf from './RenderIf';
 import { CalendarDayDataInterface, CalendarEventDataInterface, CalendarStoreInterface, useCalendarStore } from '../stores/calendarStore';
+import ActualDate from './ActualDate';
+import WeekDays from './WeekDays';
 
 const CalendarDaysWrapper = styled.div`
   display: flex;
@@ -233,6 +235,11 @@ const CalendarDay = () => {
 
   return (
     <React.Fragment>
+
+      <ActualDate />
+
+      <WeekDays />
+
       <DaysLineWrapper>
         <DaysLine>
           {actualWeek?.map((day: CalendarDayDataInterface, index: number) => (

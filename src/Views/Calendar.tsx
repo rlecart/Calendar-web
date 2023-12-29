@@ -3,7 +3,6 @@ import * as React from 'react';
 import WithAuthentication from '../containers/WithAuthentication';
 
 import Header from '../components/Header';
-import WeekDays from '../components/WeekDays';
 import CalendarMonth from '../components/CalendarMonth';
 import styled from 'styled-components';
 import RenderIf from '../components/RenderIf';
@@ -277,12 +276,10 @@ const Calendar = () => {
         </RenderIf>
 
         <RenderIf isTrue={calendarType === 'month'}>
-          <WeekDays />
           <CalendarMonth />
         </RenderIf>
 
         <RenderIf isTrue={calendarType === 'day'}>
-          <WeekDays />
           <CalendarDay />
         </RenderIf>
 
