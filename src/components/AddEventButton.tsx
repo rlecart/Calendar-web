@@ -9,6 +9,7 @@ import { Plus, X } from 'react-feather';
 import { CalendarStoreInterface, useCalendarStore } from '../stores/calendarStore';
 import RenderIf from './RenderIf';
 import { Alert } from 'react-bootstrap';
+import { ToggleSlider } from 'react-toggle-slider';
 
 const AddEventButtonWrapper = styled.button`
   position: fixed;
@@ -68,10 +69,12 @@ const FormGroup = styled.div`
 
   border-radius: 0.625rem;
   background: #37393C;
+  padding-left: 1.25rem;
 `
 const FormInputSlider = styled.div`
   display: flex;
   padding: 0.3125rem 1.25rem;
+  padding-left: 0;
   justify-content: space-between;
   align-items: center;
   align-self: stretch;
@@ -93,7 +96,7 @@ const FormLabelText = styled.label`
   line-height: normal;
 `
 const FormSeparator = styled.div`
-  width: 40.25rem;
+  width: 100%;
   height: 0.0625rem;
 
   background: rgba(211, 211, 211, 0.20);
@@ -101,6 +104,7 @@ const FormSeparator = styled.div`
 const FormInputDatePicker = styled.div`
   display: flex;
   padding: 0.3125rem 1.25rem;
+  padding-left: 0;
   justify-content: space-between;
   align-items: center;
   align-self: stretch;
@@ -109,10 +113,10 @@ const FormInputDatePicker = styled.div`
 `
 const DatePickerWrapper = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
   gap: 0.625rem;
-  align-self: stretch;
+  // align-self: stretch;
 `
 const DateInput = styled(Form.Control)`
   display: flex;
@@ -120,11 +124,14 @@ const DateInput = styled(Form.Control)`
   justify-content: center;
   align-items: center;
   gap: 0.625rem;
-  align-self: stretch;
+  // align-self: stretch;
 
   border-radius: 0.3125rem;
   background: rgba(211, 211, 211, 0.30);
   border: 0;
+  width: 7.15rem;
+  height: 2.25rem;
+  // align-self: auto;
 `
 const HourInput = styled(Form.Control)`
   display: flex;
@@ -137,6 +144,9 @@ const HourInput = styled(Form.Control)`
   border-radius: 0.3125rem;
   background: rgba(211, 211, 211, 0.30);
   border: 0;
+  width: 4.8rem;
+  height: 2.25rem;
+  // align-self: auto;
 `
 const FormInputTextArea = styled.textarea`
   display: flex;
@@ -270,7 +280,14 @@ const AddEventButton = () => {
                     Jour entier
                   </FormLabelText>
                 </FormLabel>
-                {/* <Slider /> */}
+
+                <ToggleSlider
+                  active={isAllDay}
+                  draggable
+                  onToggle={() => setIsAllDay(!isAllDay)}
+                  barBackgroundColor='rgba(211, 211, 211, 0.30)'
+                  barBackgroundColorActive='#3E526F'
+                />
               </FormInputSlider>
 
               <FormSeparator />
