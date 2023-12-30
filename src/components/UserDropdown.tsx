@@ -2,6 +2,7 @@ import * as React from 'react';
 import { ButtonGroup, Dropdown, DropdownButton } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { CalendarStoreInterface, useCalendarStore } from '../stores/calendarStore';
 
 const UserDropdownWrapper = styled.div`
   display: flex;
@@ -28,6 +29,8 @@ const UserDropdownText = styled.div`
 const UserDropdown = () => {
   const navigate = useNavigate();
 
+  const resetCalendarStore = useCalendarStore((state: CalendarStoreInterface) => state.resetCalendarStore);
+
   const handleSelect = (e: string) => {
     if (e === '1') {
       console.log('Profil');
@@ -35,6 +38,7 @@ const UserDropdown = () => {
     else if (e === '2') {
       console.log('Déconnexion');
       localStorage.removeItem('jwt');
+      resetCalendarStore();
       navigate('/login');
     }
   }

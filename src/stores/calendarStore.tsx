@@ -40,7 +40,7 @@ export interface CalendarYearDataInterface {
 export interface CalendarStoreInterface {
   calendarType: CalendarTypeType;
   calendarDate: CalendarDateInterface;
-  
+
   calendarDayData: CalendarDayDataInterface;
   calendarMonthData: CalendarMonthDataInterface;
   calendarYearData: CalendarYearDataInterface;
@@ -51,6 +51,8 @@ export interface CalendarStoreInterface {
   setCalendarDayData: (newCalendarDayData: CalendarDayDataInterface) => void;
   setCalendarMonthData: (newCalendarMonthData: CalendarMonthDataInterface) => void;
   setCalendarYearData: (newCalendarYearData: CalendarYearDataInterface) => void;
+
+  resetCalendarStore: () => void;
 }
 
 export const useCalendarStore = create((set) => ({
@@ -70,6 +72,7 @@ export const useCalendarStore = create((set) => ({
   setCalendarDate: (newCalendarDate: CalendarDateInterface) => set(() => ({
     calendarDate: newCalendarDate,
   })),
+
   setCalendarDayData: (newCalendarDayData: CalendarDayDataInterface) => set(() => ({
     calendarDayData: newCalendarDayData,
   })),
@@ -78,5 +81,17 @@ export const useCalendarStore = create((set) => ({
   })),
   setCalendarYearData: (newCalendarYearData: CalendarYearDataInterface) => set(() => ({
     calendarYearData: newCalendarYearData,
+  })),
+
+  resetCalendarStore: () => set((state: CalendarStoreInterface) => ({
+    calendarType: 'month',
+    calendarDate: {
+      dayOfMonth: -1,
+      month: -1,
+      year: -1,
+    },
+    calendarDayData: {},
+    calendarMonthData: {},
+    calendarYearData: {},
   })),
 }));
