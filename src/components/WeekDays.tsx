@@ -9,7 +9,7 @@ const WeekDaysContainer = styled.div`
   flex-shrink: 0;
   align-self: stretch;
 
-  background: #333537;
+  background: #19151A;
 `
 const DayContainer = styled.div`
   display: flex;
@@ -20,7 +20,7 @@ const DayContainer = styled.div`
   align-self: stretch;
 `
 const DayText = styled.div`
-  color: #FFF;
+  color: #F0E8DA;
   font-family: Inter;
   font-size: 1rem;
   font-style: normal;
