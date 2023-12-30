@@ -29,3 +29,12 @@
 .dropdown-item:active {
   background-color: #3E526F !important;
 }
+
+.dropdown-item:focus, .dropdown-item:hover {
+  color: var(--bs-dropdown-link-hover-color);
+  background-color: rgba(182, 107, 56, 0.2);
+}
+
+.dropdown-item:active {
+  background-color: rgba(182, 107, 56, 0.6) !important;
+}

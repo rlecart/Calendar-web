@@ -56,13 +56,17 @@ const UserDropdown = () => {
 
         <Dropdown.Menu
           data-bs-theme={'dark'}
+          style={{
+            background: '#120E13',
+          }}
         >
           <Dropdown.Item
             eventKey="1"
           >
             Profil
           </Dropdown.Item>
-          <Dropdown.Divider />
+          <Dropdown.Divider
+          />
           <Dropdown.Item
             eventKey="2"
             bsPrefix={'dropdown-item text-danger'}
