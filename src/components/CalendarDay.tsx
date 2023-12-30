@@ -46,11 +46,11 @@ const DayNumber = styled.button`
   align-self: stretch;
 
   border: 0;
-  border-bottom: 1px solid #596474;
+  border-bottom: 1px solid rgba(240, 232, 218, 0.10);
   background: #19151A;
 
   &:hover {
-    background: #3e526fc4;
+    background: rgba(182, 107, 56, 0.2);
     border-radius: 1rem 1rem 0 0;
   }
 `
@@ -65,9 +65,9 @@ const DayNumberSelected = styled.div`
   align-self: stretch;
 
   border-radius: 0.625rem 0.625rem 0rem 0rem;
-  border-top: 1px solid #596474;
-  border-right: 1px solid #596474;
-  border-left: 1px solid #596474;
+  border-top: 1px solid rgba(240, 232, 218, 0.10);
+  border-right: 1px solid rgba(240, 232, 218, 0.10);
+  border-left: 1px solid rgba(240, 232, 218, 0.10);
   background: #120E13;
 `
 const DayNumberEmpty = styled.div`
@@ -80,7 +80,7 @@ const DayNumberEmpty = styled.div`
   flex: 1 0 0;
   align-self: stretch;
 
-  border-bottom: 1px solid #596474;
+  border-bottom: 1px solid rgba(240, 232, 218, 0.10);
   background: #19151A;
 `
 const DayNumberText = styled.div`
