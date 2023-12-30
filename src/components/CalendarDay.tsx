@@ -249,11 +249,9 @@ const CalendarDay = () => {
   const [selectedEvent, setSelectedEvent] = React.useState<CalendarEventDataInterface | null>(null);
 
   const handleClose = () => {
-    // resetAllFields();
     setShow(false)
   };
   const handleShow = () => {
-    // resetAllFields();
     setShow(true)
   };
 
