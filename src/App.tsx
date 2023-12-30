@@ -12,11 +12,16 @@ import {
 import NotFound from './Views/NotFound';
 import Login from './Views/Login';
 import Calendar from './Views/Calendar';
+import SignUp from './Views/SignUp';
 
 const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/signup",
+    element: <SignUp />,
   },
   {
     path: "/",

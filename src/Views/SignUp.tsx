@@ -99,18 +99,18 @@ const LoginForm = styled.div`
     gap: 0.625rem;
     align-self: stretch;
 `
-const SignUpAndForgotPassword = styled.div`
+const AlreadySignUp = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
     align-self: stretch;
 `
-const SignUpWrapper = styled.button`
+const SignInWrapper = styled.button`
     border: 0;
     background: transparent;
     padding: 0;
 `
-const SignUpText = styled.p`
+const SignInText = styled.p`
     color: #F18D5E;
     font-family: Inter;
     font-size: 1rem;
@@ -200,7 +200,7 @@ const LoginButtonText = styled.p`
     letter-spacing: 0.05625rem;
 `
 
-const Login = () => {
+const SignUp = () => {
   const navigate = useNavigate();
 
   const [username, setUsername] = React.useState<string>('');
@@ -211,7 +211,7 @@ const Login = () => {
   const handleSubmit = () => {
     setError('');
 
-    let status = 404;
+    let status = 403;
     if (username === 'abc')
       status = 200;
 
@@ -220,8 +220,12 @@ const Login = () => {
       data: 'fake-jwt',
     }
 
-    if (fakeRes.status !== 200) {
-      setError('Identifiant ou mot de passe incorrect.');
+    if (fakeRes.status === 403) {
+      setError('Cet identifiant est déjà pris.');
+      return;
+    }
+    else if (fakeRes.status !== 200) {
+      setError('Une erreur est survenue.');
       return;
     }
 
@@ -247,7 +251,7 @@ const Login = () => {
 
             <Description>
               <DescriptionText>
-                Connectez-vous pour accéder a votre calendrier synchronisé <CloudSpan>dans le cloud</CloudSpan> <EmojiSpan>🔥</EmojiSpan>
+                Inscrivez-vous et accédez à votre nouveau calendrier synchronisé <CloudSpan>dans le cloud</CloudSpan> <EmojiSpan>🚀</EmojiSpan>
               </DescriptionText>
             </Description>
           </TitleAndDescription>
@@ -262,19 +266,13 @@ const Login = () => {
             </Alert>
           </RenderIf>
           <LoginForm>
-            <SignUpAndForgotPassword>
-              <SignUpWrapper onClick={() => navigate('/signup')}>
-                <SignUpText>
-                  Pas encore inscrit ?
-                </SignUpText>
-              </SignUpWrapper>
-
-              <ForgotPassword onClick={() => { }}>
-                <ForgotPasswordText>
-                  Mot de passe oublié ?
-                </ForgotPasswordText>
-              </ForgotPassword>
-            </SignUpAndForgotPassword>
+            <AlreadySignUp>
+              <SignInWrapper onClick={() => navigate('/login')}>
+                <SignInText>
+                  Déjà inscrit ?
+                </SignInText>
+              </SignInWrapper>
+            </AlreadySignUp>
 
             <LoginInputsWrapper>
               <LoginInputs>
@@ -294,7 +292,7 @@ const Login = () => {
 
               <LoginButton onClick={handleSubmit}>
                 <LoginButtonText>
-                  Se connecter
+                  S'inscrire
                 </LoginButtonText>
               </LoginButton>
             </LoginInputsWrapper>
@@ -306,4 +304,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;
