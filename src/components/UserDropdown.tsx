@@ -14,10 +14,10 @@ const UserDropdownWrapper = styled.div`
   gap: 0.625rem;
 
   border-radius: 6.25rem;
-  background: #3680EF;
+  background: #F18D5E;
 `
 const UserDropdownText = styled.div`
-  color: #FFF;
+  color: #F0E8DA;
   font-family: Inter;
   font-size: 1.25rem;
   font-style: normal;

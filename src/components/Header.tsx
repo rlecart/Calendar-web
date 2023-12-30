@@ -14,7 +14,8 @@ const HeaderWrapper = styled.div`
   align-items: center;
   flex-shrink: 0;
 
-  background: #2C2E31;
+  border-bottom: 1px solid #F18D5E;
+  background: #0E0A10;
 `
 const LeftHeader = styled.div`
   display: flex;
@@ -42,7 +43,7 @@ const HeaderTitle = styled.div`
   align-items: center;
 `
 const HeaderTitleText = styled.div`
-  color: #D3D3D3;
+  color: #F0E8DA;
   font-family: Inter;
   font-size: 2.125rem;
   font-style: normal;
@@ -62,7 +63,7 @@ const ActualDate = styled.div`
   gap: 0.46875rem;
 `
 const ActualDateText = styled.div`
-  color: #D3D3D3;
+  color: #F0E8DA;
   font-family: Inter;
   font-size: 1rem;
   font-style: normal;
@@ -75,7 +76,7 @@ const ActualHour = styled.div`
   gap: 0.46875rem;
 `
 const ActualHourText = styled.div`
-  color: #D3D3D3;
+  color: #F0E8DA;
   font-family: Inter;
   font-size: 1rem;
   font-style: normal;

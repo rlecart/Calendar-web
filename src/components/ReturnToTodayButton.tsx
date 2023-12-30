@@ -15,11 +15,11 @@ const ReturnToTodayButtonElem = styled.button`
   gap: 0.25rem;
 
   border-radius: 0.625rem;
-  background: #D3D3D3;
+  background: #F0E8DA;
   border: 0;
 `
 const ReturnToTodayButtonText = styled.div`
-  color: #3E526F;
+  color: #B66B38;
   font-family: Inter;
   font-size: 1rem;
   font-style: normal;

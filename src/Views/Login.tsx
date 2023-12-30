@@ -188,6 +188,9 @@ const LoginButton = styled.button`
     background: #B66B38;
     border: 0;
 
+    &:hover {
+      background: #F18D5E;
+    }
 `
 const LoginButtonText = styled.p`
     margin: 0;

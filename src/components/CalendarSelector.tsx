@@ -11,7 +11,7 @@ const YearBackground = styled.div`
   justify-content: center;
   flex: 1;
   align-self: stretch;
-  background: #333537;
+  background: #120E13;
   overflow-y: scroll;
 
   &::-webkit-scrollbar {
@@ -33,9 +33,9 @@ const MonthSelect = styled.select`
   align-items: center;
   align-self: stretch;
   border-radius: 0.625rem;
-  border: 1px solid #596474;
-  background: #37393C;
-  color: #FFF;
+  border: 0;
+  background: #F0E8DA;
+  color: rgba(6, 2, 9, 1);
   width: 10rem;
   justify-content: center;
 `
@@ -47,13 +47,17 @@ const YearInput = styled.input`
   align-items: center;
   gap: 1.25rem;
   flex: 1 0 0;
-  background: #37393C;
   width: 6rem;
 
   border-radius: 0.625rem;
-  border: 1px solid #596474;
-  background: #37393C;
-  color: #FFF;
+  border: 0;
+  background: #F0E8DA;
+
+  color: rgba(6, 2, 9, 1);
+
+  &::placeholder {
+    color: rgba(6, 2, 9, 0.50);
+  }
 `
 
 const SubmitYearButton = styled.button`
@@ -62,7 +66,7 @@ const SubmitYearButton = styled.button`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: #3e526fc4;
+  background: #B66B38;
 
   align-self: stretch;
 
@@ -71,7 +75,7 @@ const SubmitYearButton = styled.button`
   color: #FFF;
 
   &:hover {
-    background: #3e526fc4;
+    background: #F18D5E;
   }
 
 `

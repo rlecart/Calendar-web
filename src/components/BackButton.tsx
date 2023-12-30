@@ -15,11 +15,11 @@ const BackButtonWrapper = styled.button`
   gap: 0.25rem;
 
   border-radius: 0.625rem;
-  background: #3E526F;
+  background: #B66B38;
   border: 0;
 `
 const BackButtonText = styled.div`
-  color: #D3D3D3;
+  color: #F0E8DA;
   font-family: Inter;
   font-size: 1rem;
   font-style: normal;
