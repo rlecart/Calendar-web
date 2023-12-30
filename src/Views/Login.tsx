@@ -14,7 +14,7 @@ const Background = styled.div`
     height: 100vh;
     display: flex;
     flex-direction: row-reverse;
-    background: #2C2E31;
+    background: #120E13;
 `
 const RightPanel = styled.div`
     display: flex;
@@ -24,7 +24,18 @@ const RightPanel = styled.div`
     justify-content: center;
     align-items: center;
     gap: 2.5rem;
-    background: #2C2E31;
+    background: #0E0A10;
+    border-left: 1px solid #F18D5E;
+
+    @media (max-width: 1400px) {
+      width: 60%;
+    }
+    @media (max-width: 1200px) {
+      width: 80%;
+    }
+    @media (max-width: 992px) {
+      width: 95%;
+    }
 `
 const TitleAndDescription = styled.div`
     display: flex;
@@ -42,7 +53,7 @@ const Title = styled.div`
     align-self: stretch;
 `
 const TitleText = styled.h1`
-    color: #D3D3D3;
+    color: #F0E8DA;
     font-family: Inter;
     font-size: 2.125rem;
     font-style: normal;
@@ -60,7 +71,7 @@ const Description = styled.div`
 `
 const DescriptionText = styled.p`
     margin: 0;
-    color: rgba(211, 211, 211, 0.60);
+    color: rgba(240, 232, 218, 0.60);
     font-family: Inter;
     font-size: 1.5rem;
     font-style: normal;
@@ -68,19 +79,77 @@ const DescriptionText = styled.p`
     line-height: normal;
     letter-spacing: 0.075rem;
 `
+const CloudSpan = styled.span`
+    color: #F18D5E;
+    font-family: Inter;
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0.075rem;
+`
+const EmojiSpan = styled.span`
+    color: #F18D5E;
+`
 const LoginForm = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 1.25rem;
+    gap: 0.625rem;
     align-self: stretch;
+`
+const SignUpAndForgotPassword = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-self: stretch;
+`
+const SignUp = styled.div`
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
+    // align-self: stretch;
+`
+const SignUpText = styled.p`
+    color: #F18D5E;
+    font-family: Inter;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    letter-spacing: 0.05rem;
+    margin: 0;
+`
+const ForgotPassword = styled.div`
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
+    // align-self: stretch;
+`
+const ForgotPasswordText = styled.p`
+    color: #F18D5E;
+    font-family: Inter;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    letter-spacing: 0.05rem;
+    margin: 0;
 `
 const LoginInputs = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+    gap: 1.25rem;
+    align-self: stretch;
+`
+const LoginInputsWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     gap: 1.25rem;
     align-self: stretch;
 `
@@ -92,14 +161,14 @@ const LoginInput = styled.input`
     flex: 1 0 0;
 
     border-radius: 0.625rem;
-    background: #37393C;
+    background: #F0E8DA;
     border: 0;
 
-    color: #FFF;
+    color: rgba(6, 2, 9, 1);
     
     &::placeholder {
       margin: 0;
-      color: rgba(211, 211, 211, 0.30);
+      color: rgba(6, 2, 9, 0.50);
       font-family: Inter;
       font-size: 1rem;
       font-style: normal;
@@ -118,13 +187,13 @@ const LoginButton = styled.button`
     align-self: stretch;
 
     border-radius: 0.625rem;
-    background: #3E526F;
+    background: #B66B38;
     border: 0;
 
 `
 const LoginButtonText = styled.p`
     margin: 0;
-    color: #FFF;
+    color: #F0E8DA;
     font-family: Inter;
     font-size: 1.125rem;
     font-style: normal;
@@ -169,7 +238,7 @@ const Login = () => {
 
   return (
     <React.Fragment>
-      <Background className='w-100 h-100vh d-flex flex-row-reverse bg-grey'>
+      <Background>
         <RightPanel>
           <TitleAndDescription>
             <Title>
@@ -180,41 +249,58 @@ const Login = () => {
 
             <Description>
               <DescriptionText>
-                Connectez-vous pour accéder a votre calendrier synchronisé dans le cloud.
+                Connectez-vous pour accéder a votre calendrier synchronisé <CloudSpan>dans le cloud</CloudSpan> <EmojiSpan>🔥</EmojiSpan>
               </DescriptionText>
             </Description>
           </TitleAndDescription>
 
+          <RenderIf isTrue={error !== ''}>
+            <Alert
+              className='w-100'
+              variant='danger'
+              data-bs-theme="dark"
+            >
+              {error}
+            </Alert>
+          </RenderIf>
           <LoginForm>
-            <RenderIf isTrue={error !== ''}>
-              <Alert
-                className='w-100'
-                variant='danger'
-                data-bs-theme="dark"
-              >
-                {error}
-              </Alert>
-            </RenderIf>
-            <LoginInputs>
-              <LoginInput
-                placeholder='Identifiant'
-                onChange={(newUsername: React.ChangeEvent<HTMLInputElement>) => setUsername(newUsername.target.value)}
-                value={username}
-                type='text'
-              />
-              <LoginInput
-                placeholder='Mot de passe'
-                onChange={(newPassword: React.ChangeEvent<HTMLInputElement>) => setPassword(newPassword.target.value)}
-                value={password}
-                type='password'
-              />
-            </LoginInputs>
+            <SignUpAndForgotPassword>
+              <SignUp>
+                <SignUpText>
+                  Pas encore inscrit ?
+                </SignUpText>
+              </SignUp>
 
-            <LoginButton onClick={handleSubmit}>
-              <LoginButtonText>
-                Se connecter
-              </LoginButtonText>
-            </LoginButton>
+              <ForgotPassword>
+                <ForgotPasswordText>
+                  Mot de passe oublié ?
+                </ForgotPasswordText>
+              </ForgotPassword>
+            </SignUpAndForgotPassword>
+
+            <LoginInputsWrapper>
+              <LoginInputs>
+                <LoginInput
+                  placeholder='Identifiant'
+                  onChange={(newUsername: React.ChangeEvent<HTMLInputElement>) => setUsername(newUsername.target.value)}
+                  value={username}
+                  type='text'
+                />
+                <LoginInput
+                  placeholder='Mot de passe'
+                  onChange={(newPassword: React.ChangeEvent<HTMLInputElement>) => setPassword(newPassword.target.value)}
+                  value={password}
+                  type='password'
+                />
+              </LoginInputs>
+
+              <LoginButton onClick={handleSubmit}>
+                <LoginButtonText>
+                  Se connecter
+                </LoginButtonText>
+              </LoginButton>
+            </LoginInputsWrapper>
+
           </LoginForm>
         </RightPanel>
       </Background>
