@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import RenderIf from './RenderIf';
 import { useCalendarStore, CalendarStoreInterface, CalendarDayDataInterface, CalendarEventDataInterface } from '../stores/calendarStore';
 import { ChevronLeft, ChevronRight } from 'react-feather';
+import ActualDate from './ActualDate';
 
 const CalendarMonthsWrapper = styled.div`
   display: flex;
@@ -119,36 +120,12 @@ const CalendarYear = () => {
     })
     setCalendarType('month')
   }
-  
-  const handleChangeYear = (add: number) => {
-    console.log('avant', calendarDate)
-    setCalendarDate({
-      dayOfMonth: -1,
-      month: -1,
-      year: calendarDate.year + add,
-    })
-    console.log('apres', calendarDate)
-  }
 
   return (
     <React.Fragment>
       <CalendarMonthsWrapper>
-        <YearLineSelector>
-          <SelectorButton onClick={() => handleChangeYear(-1)}>
-            <ChevronLeft size={18} color='rgba(182, 107, 56, 1)' />
-          </SelectorButton>
 
-          <ActualYear>
-            <ActualYearText>
-              {calendarDate.year}
-            </ActualYearText>
-          </ActualYear>
-
-          <SelectorButton onClick={() => handleChangeYear(1)}>
-            <ChevronRight size={18} color='rgba(182, 107, 56, 1)' />
-          </SelectorButton>
-
-        </YearLineSelector>
+        <ActualDate />
 
         <MonthList>
           {monthList.map((monthLine, lineIndex) => (

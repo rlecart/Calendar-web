@@ -129,7 +129,8 @@ const CalendarMonth = () => {
               <CalendarDayBloc
                 key={index}
                 style={day.dayOfMonth === new Date().getDate() && day.month === new Date().getMonth() + 1 && day.year === new Date().getFullYear() ? {
-                  border: `1px solid #B66B38`
+                  outline: `1px solid #B66B38`,
+                  outlineOffset: `-1px`,
                 } : {}}
                 onClick={() => handleClickBloc(day)}
               >
@@ -156,7 +157,7 @@ const CalendarMonth = () => {
           </DayLine>
         ))}
       </CalendarDaysWrapper>
-    </React.Fragment>
+    </React.Fragment >
   );
 };
 
