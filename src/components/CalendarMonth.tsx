@@ -126,7 +126,13 @@ const CalendarMonth = () => {
         {slicedCalendarData?.map((week: Array<CalendarDayDataInterface>, index: number) => (
           <DayLine key={index}>
             {week.map((day, index) => (
-              <CalendarDayBloc key={index} onClick={() => handleClickBloc(day)}>
+              <CalendarDayBloc
+                key={index}
+                style={day.dayOfMonth === new Date().getDate() && day.month === new Date().getMonth() + 1 && day.year === new Date().getFullYear() ? {
+                  border: `1px solid #B66B38`
+                } : {}}
+                onClick={() => handleClickBloc(day)}
+              >
                 <CalendarDayText>
                   {day.dayOfMonth}
                 </CalendarDayText>
