@@ -11,7 +11,7 @@ const CalendarDaysWrapper = styled.div`
   align-items: flex-start;
   flex: 1;
   align-self: stretch;
-  background: #2C2E31;
+  background: #120E13;
   overflow-y: scroll;
 
   &::-webkit-scrollbar {
@@ -34,14 +34,14 @@ const CalendarDayBloc = styled.button`
   gap: 1rem;
   flex: 1 0 0;
   align-self: stretch;
-  background: #37393C;
+  background: #120E13;
 
   border: 0;
-  border-right: 1px solid #596474;
-  border-bottom: 1px solid #596474;
+  border-right: 1px solid rgba(240, 232, 218, 0.10);
+  border-bottom: 1px solid rgba(240, 232, 218, 0.10);
 
   &:hover {
-    background: #3e526fc4;
+    background: rgba(182, 107, 56, 0.2);
   }
 `
 const CalendarDayText = styled.div`
@@ -84,7 +84,7 @@ const CalendarDayEmpty = styled.div`
   gap: 1rem;
   flex: 1 0 0;
   align-self: stretch;
-  background: #2C2E31;
+  background: #100C12;
 
   border-right: 1px solid transparent;
   border-bottom: 1px solid transparent;
