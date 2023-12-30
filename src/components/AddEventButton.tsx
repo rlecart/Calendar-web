@@ -22,7 +22,7 @@ const AddEventButtonWrapper = styled.button`
   align-items: center;
 
   border-radius: 6.25rem;
-  background: #3E526F;
+  background: #F18D5E;
   box-shadow: 0px 4px 34px 0px rgba(0, 0, 0, 0.20);
 
   border: 0;
@@ -422,7 +422,7 @@ const AddEventButton = () => {
       </Modal>
 
       <AddEventButtonWrapper onClick={handleShow}>
-        <Plus size={30} color='#FFF' />
+        <Plus size={30} color='rgba(240, 232, 218, 1)' />
       </AddEventButtonWrapper>
     </React.Fragment>
   );
