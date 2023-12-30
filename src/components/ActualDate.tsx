@@ -10,10 +10,10 @@ const ActualDateLine = styled.div`
   align-items: center;
   align-self: stretch;
 
-  background: #2C2E31;
+  background: #100C12;
 `
 const ActualDateText = styled.div`
-  color: #FFF;
+  color: #F18D5E;
   font-family: Inter;
   font-size: 1.125rem;
   font-style: normal;
