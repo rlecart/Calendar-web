@@ -35,7 +35,7 @@ const ModalHeader = styled.div`
   align-self: stretch;
 `
 const ModalTitle = styled.div`
-  color: #FFF;
+  color: #F0E8DA;
   font-family: Inter;
   font-size: 1.25rem;
   font-style: normal;
@@ -57,7 +57,7 @@ const FormInputText = styled.input`
   align-self: stretch;
 
   border-radius: 0.625rem;
-  background: #37393C;
+  background: #120E13;
   border: 0;
 `
 const FormGroup = styled.div`
@@ -68,7 +68,7 @@ const FormGroup = styled.div`
   align-self: stretch;
 
   border-radius: 0.625rem;
-  background: #37393C;
+  background: #120E13;
   padding-left: 1.25rem;
 `
 const FormInputSlider = styled.div`
@@ -88,7 +88,7 @@ const FormLabel = styled.div`
   align-items: center;
 `
 const FormLabelText = styled.label`
-  color: #FFF;
+  color: #F0E8DA;
   font-family: Inter;
   font-size: 1rem;
   font-style: normal;
@@ -99,7 +99,7 @@ const FormSeparator = styled.div`
   width: 100%;
   height: 0.0625rem;
 
-  background: rgba(211, 211, 211, 0.20);
+  background: rgba(240, 232, 218, 0.10);
 `
 const FormInputDatePicker = styled.div`
   display: flex;
@@ -127,11 +127,16 @@ const DateInput = styled(Form.Control)`
   // align-self: stretch;
 
   border-radius: 0.3125rem;
-  background: rgba(211, 211, 211, 0.30);
+  background: #;
   border: 0;
   width: 7.15rem;
   height: 2.25rem;
   // align-self: auto;
+
+  color: rgba(182, 107, 56, 1);
+  &::placeholder {
+    color: rgba(240, 232, 218, 0.3);
+  }
 `
 const HourInput = styled(Form.Control)`
   display: flex;
@@ -142,11 +147,16 @@ const HourInput = styled(Form.Control)`
   align-self: stretch;
 
   border-radius: 0.3125rem;
-  background: rgba(211, 211, 211, 0.30);
+  background: #;
   border: 0;
   width: 4.8rem;
   height: 2.25rem;
   // align-self: auto;
+
+  color: rgba(182, 107, 56, 1);
+  &::placeholder {
+    color: rgba(240, 232, 218, 0.3);
+  }
 `
 const FormInputTextArea = styled.textarea`
   display: flex;
@@ -156,7 +166,7 @@ const FormInputTextArea = styled.textarea`
   align-self: stretch;
 
   border-radius: 0.625rem;
-  background: #37393C;
+  background: #120E13;
   border: 0;
 `
 const FormSubmitButton = styled.button`
@@ -169,7 +179,13 @@ const FormSubmitButton = styled.button`
   align-self: stretch;
 
   border-radius: 0.625rem;
-  background: #3E526F;
+  background: #B66B38;
+  color: #F0E8DA;
+  font-family: Inter;
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
   border: 0;
 `
 
@@ -306,9 +322,9 @@ const AddEventButton = () => {
           style={{
             display: 'flex',
             flexDirection: 'column',
-            backgroundColor: '#2C2E31',
+            backgroundColor: '#0D090F',
             borderRadius: '1rem',
-            color: '#fff',
+            color: '#F0E8DA',
             padding: '2.5rem',
             gap: '2.5rem',
           }}
@@ -317,7 +333,7 @@ const AddEventButton = () => {
             <ModalTitle>
               Nouvel événement
             </ModalTitle>
-            <X size={24} color='#FFF' onClick={handleClose} />
+            <X size={24} color='#F0E8DA' onClick={handleClose} />
           </ModalHeader>
 
           <FormEvent>
@@ -345,8 +361,9 @@ const AddEventButton = () => {
                   active={isAllDay}
                   draggable
                   onToggle={() => setIsAllDay(!isAllDay)}
-                  barBackgroundColor='rgba(211, 211, 211, 0.30)'
-                  barBackgroundColorActive='#3E526F'
+                  handleBackgroundColor='#F0E8DA'
+                  barBackgroundColor='#19151A'
+                  barBackgroundColorActive='#B66B38'
                 />
               </FormInputSlider>
 
