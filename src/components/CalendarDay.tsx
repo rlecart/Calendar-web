@@ -11,7 +11,7 @@ const CalendarDaysWrapper = styled.div`
   align-items: flex-start;
   flex: 1;
   align-self: stretch;
-  background: #120E13;
+  background: #19151A;
   overflow-y: scroll;
 
   &::-webkit-scrollbar {
@@ -47,7 +47,7 @@ const DayNumber = styled.button`
 
   border: 0;
   border-bottom: 1px solid rgba(240, 232, 218, 0.10);
-  background: #19151A;
+  background: #120E13;
 
   &:hover {
     background: rgba(182, 107, 56, 0.2);
@@ -68,7 +68,7 @@ const DayNumberSelected = styled.div`
   border-top: 1px solid rgba(240, 232, 218, 0.10);
   border-right: 1px solid rgba(240, 232, 218, 0.10);
   border-left: 1px solid rgba(240, 232, 218, 0.10);
-  background: #120E13;
+  background: #19151A;
 `
 const DayNumberEmpty = styled.div`
   display: flex;
@@ -81,7 +81,7 @@ const DayNumberEmpty = styled.div`
   align-self: stretch;
 
   border-bottom: 1px solid rgba(240, 232, 218, 0.10);
-  background: #19151A;
+  background: #120E13;
 `
 const DayNumberText = styled.div`
   color: #F0E8DA;
@@ -150,7 +150,7 @@ const EventsListWrapperAbsolute = styled.div`
     padding-right: 5rem;
     padding-top: 3.25rem;
 `
-const EventCard = styled.div`
+const EventCard = styled.button`
   position: absolute;
   display: flex;
   padding: 1.5rem;
@@ -161,6 +161,8 @@ const EventCard = styled.div`
   left: 8rem;
   
   background: rgba(160, 74, 61, 0.50);
+
+  border: 0;
 `
 const EventElems = styled.div`
   display: flex;

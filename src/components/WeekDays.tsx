@@ -9,7 +9,7 @@ const WeekDaysContainer = styled.div`
   flex-shrink: 0;
   align-self: stretch;
 
-  background: #19151A;
+  background: #120E13;
 `
 const DayContainer = styled.div`
   display: flex;

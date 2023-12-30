@@ -34,7 +34,7 @@ const CalendarDayBloc = styled.button`
   gap: 1rem;
   flex: 1 0 0;
   align-self: stretch;
-  background: #120E13;
+  background: #19151A;
 
   border: 0;
   border-right: 1px solid rgba(240, 232, 218, 0.10);
@@ -84,7 +84,7 @@ const CalendarDayEmpty = styled.div`
   gap: 1rem;
   flex: 1 0 0;
   align-self: stretch;
-  background: #100C12;
+  background: #120E13;
 
   border-right: 1px solid transparent;
   border-bottom: 1px solid transparent;

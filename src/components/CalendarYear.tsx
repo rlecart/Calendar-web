@@ -82,7 +82,7 @@ const SingleMonth = styled.button`
   border: 0;
   border-right: 1px solid rgba(240, 232, 218, 0.10);
   border-bottom: 1px solid rgba(240, 232, 218, 0.10);
-  background: #120E13;
+  background: #19151A;
 
   &:hover {
     background: rgba(182, 107, 56, 0.2);
