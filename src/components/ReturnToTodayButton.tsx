@@ -59,7 +59,7 @@ const ReturnToTodayButton = () => {
           <ReturnToTodayButtonText>
             Aujourd'hui
           </ReturnToTodayButtonText>
-          <ChevronRight size={18} color='#3E526F' />
+          <ChevronRight size={18} color='#B66B38' />
         </ReturnToTodayButtonElem>);
       </React.Fragment>
     </RenderIf>
