@@ -34,7 +34,7 @@ const DaysLine = styled.div`
   align-items: center;
   align-self: stretch;
 
-  background: #19151A;
+  background: #120e13;
 `
 const DayNumber = styled.button`
   display: flex;
@@ -50,9 +50,9 @@ const DayNumber = styled.button`
   border-bottom: 1px solid rgba(240, 232, 218, 0.10);
   background: #120E13;
 
+  border-radius: 1rem 1rem 0 0;
   &:hover {
     background: rgba(182, 107, 56, 0.2);
-    border-radius: 1rem 1rem 0 0;
   }
 `
 const DayNumberSelected = styled.div`
@@ -295,7 +295,14 @@ const CalendarDay = () => {
               </RenderIf>
 
               <RenderIf isTrue={calendarDayData.dayOfMonth !== day.dayOfMonth}>
-                <DayNumber onClick={() => handleSelectAnotherDay(day)}>
+                <DayNumber
+                  style={day.dayOfMonth === new Date().getDate() && day.month === new Date().getMonth() + 1 && day.year === new Date().getFullYear() ? {
+                    borderLeft: `1px solid #B66B38`,
+                    borderTop: `1px solid #B66B38`,
+                    borderRight: `1px solid #B66B38`,
+                  } : {}}
+                  onClick={() => handleSelectAnotherDay(day)}
+                >
                   <DayNumberText>
                     {day.dayOfMonth}
                   </DayNumberText>
