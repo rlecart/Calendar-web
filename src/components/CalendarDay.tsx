@@ -194,7 +194,16 @@ const ActualTimeCursor = styled.div`
   left: 6rem;
   right: 0rem;
   display: flex;
+  align-items: center;
   // background: blue;
+`
+const ActualTimeCursorLine = styled.div`
+  position: absolute;
+  left: 0rem;
+  right: 2.5rem;
+  height: 3px;
+  background: #EF3636;
+  border-radius: 2rem;
 `
 
 
@@ -352,9 +361,13 @@ const CalendarDay = () => {
               top: `${actualTimeCursorPosition}px`,
             }}
           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="1812" height="18" viewBox="0 0 1812 18" fill="none">
-              <path d="M15 7.5L0 0.339746V17.6603L15 10.5V7.5ZM5082 10.5C5082.83 10.5 5083.5 9.82843 5083.5 9C5083.5 8.17157 5082.83 7.5 5082 7.5V10.5ZM13.5 10.5H5082V7.5H13.5V10.5Z" fill="#EF3636" />
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="16" viewBox="0 0 13 16" fill="none">
+              <path d="M12.5 6.75L0 0.783122V15.2169L12.5 9.25V6.75ZM1 9.25C1.69036 9.25 2.25 8.69036 2.25 8C2.25 7.30964 1.69036 6.75 1 6.75V9.25Z" fill="#EF3636" />
             </svg>
+            <ActualTimeCursorLine />
+            {/* <svg xmlns="http://www.w3.org/2000/svg" width="1812" height="18" viewBox="0 0 1812 18" fill="none">
+              <path d="M15 7.5L0 0.339746V17.6603L15 10.5V7.5ZM5082 10.5C5082.83 10.5 5083.5 9.82843 5083.5 9C5083.5 8.17157 5082.83 7.5 5082 7.5V10.5ZM13.5 10.5H5082V7.5H13.5V10.5Z" fill="#EF3636" />
+            </svg> */}
           </ActualTimeCursor>
         </EventsWrapper>
 
