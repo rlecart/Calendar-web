@@ -11,7 +11,7 @@ const CalendarDaysWrapper = styled.div`
   align-items: flex-start;
   flex: 1;
   align-self: stretch;
-  background: #37393C;
+  background: #120E13;
   overflow-y: scroll;
 
   &::-webkit-scrollbar {
@@ -33,7 +33,7 @@ const DaysLine = styled.div`
   align-items: center;
   align-self: stretch;
 
-  background: #333537;
+  background: #19151A;
 `
 const DayNumber = styled.button`
   display: flex;
@@ -47,7 +47,7 @@ const DayNumber = styled.button`
 
   border: 0;
   border-bottom: 1px solid #596474;
-  background: #333537;
+  background: #19151A;
 
   &:hover {
     background: #3e526fc4;
@@ -68,7 +68,7 @@ const DayNumberSelected = styled.div`
   border-top: 1px solid #596474;
   border-right: 1px solid #596474;
   border-left: 1px solid #596474;
-  background: #37393C;
+  background: #120E13;
 `
 const DayNumberEmpty = styled.div`
   display: flex;
@@ -81,10 +81,10 @@ const DayNumberEmpty = styled.div`
   align-self: stretch;
 
   border-bottom: 1px solid #596474;
-  background: #333537;
+  background: #19151A;
 `
 const DayNumberText = styled.div`
-  color: #FFF;
+  color: #F0E8DA;
   font-family: Inter;
   font-size: 1.25rem;
   font-style: normal;
@@ -126,7 +126,7 @@ const TimeWrapper = styled.div`
   align-items: center;
 `
 const TimeText = styled.div`
-  color: #FFF;
+  color: #F0E8DA;
   font-family: Inter;
   font-size: 1rem;
   font-style: normal;
@@ -137,7 +137,7 @@ const TimeLine = styled.div`
   height: 0.6875rem;
   flex: 1 0 0;
 
-  border-bottom: 1px solid #545E6C;
+  border-bottom: 1px solid rgba(240, 232, 218, 0.10);
 `
 
 const EventsListWrapperAbsolute = styled.div`
@@ -170,7 +170,7 @@ const EventElems = styled.div`
   align-self: stretch;
 `
 const EventTitle = styled.div`
-  color: #FFF;
+  color: #F0E8DA;
   font-family: Inter;
   font-size: 1.25rem;
   font-style: normal;
