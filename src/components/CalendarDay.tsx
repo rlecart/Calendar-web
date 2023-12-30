@@ -50,9 +50,12 @@ const DayNumber = styled.button`
   border-bottom: 1px solid rgba(240, 232, 218, 0.10);
   background: #120E13;
 
+  color: rgb(240, 232, 218, 0.5);
+
   border-radius: 1rem 1rem 0 0;
   &:hover {
     background: rgba(182, 107, 56, 0.2);
+    color: rgb(240, 232, 218, 1);
   }
 `
 const DayNumberSelected = styled.div`
@@ -70,6 +73,8 @@ const DayNumberSelected = styled.div`
   border-right: 1px solid rgba(240, 232, 218, 0.10);
   border-left: 1px solid rgba(240, 232, 218, 0.10);
   background: #19151A;
+
+  color: rgb(240, 232, 218, 1);
 `
 const DayNumberEmpty = styled.div`
   display: flex;
@@ -85,7 +90,6 @@ const DayNumberEmpty = styled.div`
   background: #120E13;
 `
 const DayNumberText = styled.div`
-  color: #F0E8DA;
   font-family: Inter;
   font-size: 1.25rem;
   font-style: normal;

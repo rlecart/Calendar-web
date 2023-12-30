@@ -14,13 +14,13 @@ const ActualDateLine = styled.div`
   background: #100C12;
 `
 const ActualDateText = styled.div`
-  color: #F18D5E;
+  color: #F0E8DA;
   font-family: Inter;
   font-size: 1.125rem;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
-  min-width: 10rem;
+  min-width: 11rem;
   text-align: center;
 `
 
@@ -37,14 +37,23 @@ const YearLineSelector = styled.div`
 `
 const SelectorButton = styled.button`
   display: flex;
-  padding: 0.5rem 1rem;
+  // padding: 0.5rem 1rem;
+  padding: 0.4rem 0.7rem;
   justify-content: center;
   align-items: center;
   gap: 0.9375rem;
 
   border: 0;
   border-radius: 0.625rem;
-  background: #F0E8DA;
+  // background: #F18D5E;
+  background: none;
+
+  &:hover {
+    background: rgb(182, 107, 56, 0.2);
+  }
+  &:active {
+    background: rgb(182, 107, 56, 0.6);
+  }
 `
 
 
@@ -117,7 +126,7 @@ const ActualDate = () => {
       <ActualDateLine>
         <YearLineSelector>
           <SelectorButton onClick={() => handleChangeDate(-1)}>
-            <ChevronLeft size={18} color='rgba(182, 107, 56, 1)' />
+            <ChevronLeft size={22} color='#F18D5E' />
           </SelectorButton>
 
           <ActualDateText>
@@ -143,7 +152,7 @@ const ActualDate = () => {
           </ActualDateText>
 
           <SelectorButton onClick={() => handleChangeDate(1)}>
-            <ChevronRight size={18} color='rgba(182, 107, 56, 1)' />
+            <ChevronRight size={22} color='#F18D5E' />
           </SelectorButton>
 
         </YearLineSelector>
