@@ -10,7 +10,7 @@ const CalendarMonthsWrapper = styled.div`
   align-items: flex-start;
   flex: 1;
   align-self: stretch;
-  background: #2C2E31;
+  background: #120E13;
   overflow-y: scroll;
 
   &::-webkit-scrollbar {
@@ -28,7 +28,7 @@ const YearLineSelector = styled.div`
   flex-shrink: 0;
   align-self: stretch;
 
-  background: #333537;
+  background: #100C12;
 `
 const SelectorButton = styled.button`
   display: flex;
@@ -39,7 +39,7 @@ const SelectorButton = styled.button`
 
   border: 0;
   border-radius: 0.625rem;
-  background: #D3D3D3;
+  background: #F0E8DA;
 `
 const ActualYear = styled.div`
   display: flex;
@@ -49,9 +49,9 @@ const ActualYear = styled.div`
   align-self: stretch;
 `
 const ActualYearText = styled.div`
-  color: #FFF;
+  color: #F18D5E;
   font-family: Inter;
-  font-size: 1rem;
+  font-size: 1.25rem;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
@@ -80,16 +80,16 @@ const SingleMonth = styled.button`
   align-self: stretch;
 
   border: 0;
-  border-right: 1px solid #596474;
-  border-bottom: 1px solid #596474;
-  background: #37393C;
+  border-right: 1px solid rgba(240, 232, 218, 0.10);
+  border-bottom: 1px solid rgba(240, 232, 218, 0.10);
+  background: #120E13;
 
   &:hover {
-    background: #3e526fc4;
+    background: rgba(182, 107, 56, 0.2);
   }
 `
 const SingleMonthText = styled.div`
-  color: #FFF;
+  color: #F0E8DA;
   font-family: Inter;
   font-size: 1.25rem;
   font-style: normal;
@@ -135,7 +135,7 @@ const CalendarYear = () => {
       <CalendarMonthsWrapper>
         <YearLineSelector>
           <SelectorButton onClick={() => handleChangeYear(-1)}>
-            <ChevronLeft size={18} color='rgba(62, 82, 111, 1)' />
+            <ChevronLeft size={18} color='rgba(182, 107, 56, 1)' />
           </SelectorButton>
 
           <ActualYear>
@@ -145,7 +145,7 @@ const CalendarYear = () => {
           </ActualYear>
 
           <SelectorButton onClick={() => handleChangeYear(1)}>
-            <ChevronRight size={18} color='rgba(62, 82, 111, 1)' />
+            <ChevronRight size={18} color='rgba(182, 107, 56, 1)' />
           </SelectorButton>
 
         </YearLineSelector>
