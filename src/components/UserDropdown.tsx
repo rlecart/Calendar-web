@@ -14,7 +14,7 @@ const UserDropdownWrapper = styled.div`
   gap: 0.625rem;
 
   border-radius: 6.25rem;
-  background: #F18D5E;
+  background: #B66B38;
 `
 const UserDropdownText = styled.div`
   color: #F0E8DA;
