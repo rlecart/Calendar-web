@@ -233,6 +233,15 @@ const CalendarDay = () => {
     console.log(timeLineHeightPerHour)
   }, [eventsTimeScaleRef?.current?.clientHeight])
 
+  const [actualTimeCursorPosition, setActualTimeCursorPosition] = React.useState<number>(-1000);
+
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setActualTimeCursorPosition((new Date().getHours() * timeLineHeightPerHour) + 52 + (new Date().getMinutes() / 60 * timeLineHeightPerHour) - 9);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [timeLineHeightPerHour]);
+
   return (
     <React.Fragment>
 
@@ -312,11 +321,11 @@ const CalendarDay = () => {
 
           <ActualTimeCursor
             style={{
-              top: `${(new Date().getHours() * timeLineHeightPerHour) + 52 + (new Date().getMinutes() / 60 * timeLineHeightPerHour) - 9}px`,
+              top: `${actualTimeCursorPosition}px`,
             }}
           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="1773" height="18" viewBox="0 0 1773 18" fill="none">
-              <path d="M15 7.5L7.57103e-07 0.339746L-7.57103e-07 17.6603L15 10.5L15 7.5ZM1771 10.5002C1771.83 10.5002 1772.5 9.82858 1772.5 9.00015C1772.5 8.17173 1771.83 7.50015 1771 7.50015L1771 10.5002ZM13.5 10.5L1771 10.5002L1771 7.50015L13.5 7.5L13.5 10.5Z" fill="#EF3636" />
+            <svg xmlns="http://www.w3.org/2000/svg" width="1812" height="18" viewBox="0 0 1812 18" fill="none">
+              <path d="M15 7.5L0 0.339746V17.6603L15 10.5V7.5ZM5082 10.5C5082.83 10.5 5083.5 9.82843 5083.5 9C5083.5 8.17157 5082.83 7.5 5082 7.5V10.5ZM13.5 10.5H5082V7.5H13.5V10.5Z" fill="#EF3636" />
             </svg>
           </ActualTimeCursor>
         </EventsWrapper>
