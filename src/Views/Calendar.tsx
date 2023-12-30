@@ -115,7 +115,7 @@ const Calendar = () => {
       }
       setCalendarDayData(fakeResDay.data);
     }
-    else if (calendarType === 'month') {
+    if (calendarType === 'month' || calendarType === 'day') {
       // call API avec calendarType et calendarDate
       const fakeMonthData = {
         month: calendarDate.month,

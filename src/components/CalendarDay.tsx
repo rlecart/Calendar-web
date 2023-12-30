@@ -4,6 +4,7 @@ import RenderIf from './RenderIf';
 import { CalendarDayDataInterface, CalendarEventDataInterface, CalendarStoreInterface, useCalendarStore } from '../stores/calendarStore';
 import ActualDate from './ActualDate';
 import WeekDays from './WeekDays';
+import ModalEvent from './ModalEvent';
 
 const CalendarDaysWrapper = styled.div`
   display: flex;
@@ -244,8 +245,31 @@ const CalendarDay = () => {
     return () => clearInterval(interval);
   }, [timeLineHeightPerHour]);
 
+  const [show, setShow] = React.useState<boolean>(false);
+  const [selectedEvent, setSelectedEvent] = React.useState<CalendarEventDataInterface | null>(null);
+
+  const handleClose = () => {
+    // resetAllFields();
+    setShow(false)
+  };
+  const handleShow = () => {
+    // resetAllFields();
+    setShow(true)
+  };
+
+  const handleEditEvent = (event: CalendarEventDataInterface) => {
+    setSelectedEvent(event);
+    handleShow();
+  }
+
   return (
     <React.Fragment>
+      <ModalEvent
+        show={show}
+        type='edit'
+        eventData={selectedEvent}
+        handleClose={handleClose}
+      />
 
       <ActualDate />
 
@@ -304,11 +328,15 @@ const CalendarDay = () => {
 
           <EventsListWrapperAbsolute>
             {calendarDayData?.data?.map((event: CalendarEventDataInterface, index: number) => (
-              <EventCard key={index} style={{
-                backgroundColor: `${event.color}`,
-                top: `${(parseInt(event.startTime.split(':')[0]) * timeLineHeightPerHour) + 52 + (parseInt(event.startTime.split(':')[1]) / 60 * timeLineHeightPerHour)}px`,
-                bottom: `${(24 - parseInt(event.endTime.split(':')[0])) * timeLineHeightPerHour - 9 - (parseInt(event.endTime.split(':')[1]) / 60 * timeLineHeightPerHour)}px`
-              }}>
+              <EventCard
+                key={index}
+                style={{
+                  backgroundColor: `${event.color}`,
+                  top: `${(parseInt(event.startTime.split(':')[0]) * timeLineHeightPerHour) + 52 + (parseInt(event.startTime.split(':')[1]) / 60 * timeLineHeightPerHour)}px`,
+                  bottom: `${(24 - parseInt(event.endTime.split(':')[0])) * timeLineHeightPerHour - 9 - (parseInt(event.endTime.split(':')[1]) / 60 * timeLineHeightPerHour)}px`
+                }}
+                onClick={() => handleEditEvent(event)}
+              >
                 <EventElems>
                   <EventTitle>
                     {event.title}

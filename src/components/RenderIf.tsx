@@ -2,7 +2,7 @@ import * as React from 'react';
 
 interface RenderIfProps {
   isTrue: boolean;
-  children: JSX.Element | JSX.Element[];
+  children: JSX.Element | JSX.Element[] | string;
 }
 
 type RenderIfType = JSX.Element | null;
