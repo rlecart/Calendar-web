@@ -183,7 +183,6 @@ interface ModalNewEventInterface {
 const ModalEvent = ({ show, type, eventData, handleClose }: ModalNewEventInterface) => {
   const [title, setTitle] = React.useState<string>('');
   const [color, setColor] = React.useState<string>('');
-  const [isAllDay, setIsAllDay] = React.useState<boolean>(false);
   const [date, setDate] = React.useState<string>('');
   const [startTime, setStartTime] = React.useState<string>('');
   const [endTime, setEndTime] = React.useState<string>('');
@@ -217,7 +216,6 @@ const ModalEvent = ({ show, type, eventData, handleClose }: ModalNewEventInterfa
           id: 1,
           title: 'Sortir le chien',
           description: 'Description',
-          isAllDay: false,
           startTime: '00:00',
           endTime: '03:00',
           notes: 'Notes',
@@ -230,7 +228,6 @@ const ModalEvent = ({ show, type, eventData, handleClose }: ModalNewEventInterfa
           id: 2,
           title: 'Sport',
           description: 'Description',
-          isAllDay: false,
           startTime: '03:30',
           endTime: '05:30',
           notes: 'Notes',
@@ -243,7 +240,6 @@ const ModalEvent = ({ show, type, eventData, handleClose }: ModalNewEventInterfa
           id: 3,
           title: 'Étudier',
           description: 'Description',
-          isAllDay: false,
           startTime: '05:30',
           endTime: '07:30',
           notes: 'Notes',
@@ -286,7 +282,6 @@ const ModalEvent = ({ show, type, eventData, handleClose }: ModalNewEventInterfa
 
     setTitle('');
     setColor('');
-    setIsAllDay(false);
     setDate('');
     setStartTime('');
     setEndTime('');
@@ -297,7 +292,6 @@ const ModalEvent = ({ show, type, eventData, handleClose }: ModalNewEventInterfa
     if (show === true && type === 'edit' && eventData) {
       setTitle(eventData.title);
       setColor(eventData.color);
-      setIsAllDay(eventData.isAllDay);
       setDate(`${eventData.dayOfMonth.toString().padStart(2, '0')}/${eventData.month.toString().padStart(2, '0')}/${eventData.year}`);
       setStartTime(eventData.startTime);
       setEndTime(eventData.endTime);
@@ -359,7 +353,7 @@ const ModalEvent = ({ show, type, eventData, handleClose }: ModalNewEventInterfa
             />
 
             <FormGroup>
-              <FormInputSlider>
+              {/* <FormInputSlider >
                 <FormLabel>
                   <FormLabelText>
                     Jour entier
@@ -367,16 +361,16 @@ const ModalEvent = ({ show, type, eventData, handleClose }: ModalNewEventInterfa
                 </FormLabel>
 
                 <ToggleSlider
-                  active={isAllDay}
+                  // active={false}
                   draggable
-                  onToggle={() => setIsAllDay(!isAllDay)}
+                  // onToggle={() => setIsAllDay(!isAllDay)}
                   handleBackgroundColor='#F0E8DA'
                   barBackgroundColor='#19151A'
                   barBackgroundColorActive='#B66B38'
                 />
-              </FormInputSlider>
+              </FormInputSlider> */}
 
-              <FormSeparator />
+              {/* <FormSeparator /> */}
 
               <FormInputDatePicker>
                 <FormLabel>
