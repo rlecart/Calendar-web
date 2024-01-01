@@ -255,8 +255,8 @@ const Login = () => {
           <Title>
             <img src={LogoBig} alt='Logo' />
           </Title>
-          <TitleAndDescription>
 
+          <TitleAndDescription>
             <Description>
               <DescriptionText>
                 Connectez-vous pour accéder a votre calendrier synchronisé <CloudSpan>dans le cloud</CloudSpan> <EmojiSpan>🔥</EmojiSpan>

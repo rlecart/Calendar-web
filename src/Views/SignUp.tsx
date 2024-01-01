@@ -51,7 +51,7 @@ const Title = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     align-self: stretch;
 `
 const TitleText = styled.h1`
@@ -246,11 +246,11 @@ const SignUp = () => {
     <React.Fragment>
       <Background>
         <RightPanel>
-          <TitleAndDescription>
           <Title>
             <img src={LogoBig} alt='Logo' />
           </Title>
 
+          <TitleAndDescription>
             <Description>
               <DescriptionText>
                 Inscrivez-vous et accédez à votre nouveau calendrier synchronisé <CloudSpan>dans le cloud</CloudSpan> <EmojiSpan>🚀</EmojiSpan>
