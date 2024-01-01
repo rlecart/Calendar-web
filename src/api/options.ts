@@ -16,8 +16,8 @@ const options = {
     port: 3000,
   },
   back: {
-    // path: 'localhost',
-    path: 'calendarplaner.cloud',
+    path: 'localhost',
+    // path: 'calendarplaner.cloud',
     port: 8001,
   }
 };

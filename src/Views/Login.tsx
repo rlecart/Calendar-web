@@ -9,6 +9,8 @@ import RenderIf from '../components/RenderIf';
 
 import { API } from '../api';
 
+import LogoBig from '../resources/logo-big.png';
+
 const Background = styled.div`
     width: 100%;
     height: 100vh;
@@ -49,7 +51,7 @@ const Title = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     align-self: stretch;
 `
 const TitleText = styled.h1`
@@ -101,16 +103,20 @@ const LoginForm = styled.form`
 `
 const SignUpAndForgotPassword = styled.div`
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
     align-self: stretch;
 `
 const SignUpWrapper = styled.button`
+    flex: 1;
     border: 0;
     background: transparent;
     padding: 0;
 `
 const SignUpText = styled.p`
+    white-space: nowrap;
+    text-align: left;
     color: #F18D5E;
     font-family: Inter;
     font-size: 1rem;
@@ -126,6 +132,7 @@ const ForgotPassword = styled.button`
     padding: 0;
 `
 const ForgotPasswordText = styled.p`
+    white-space: nowrap;
     color: #F18D5E;
     font-family: Inter;
     font-size: 1rem;
@@ -245,12 +252,13 @@ const Login = () => {
     <React.Fragment>
       <Background>
         <RightPanel>
-          <TitleAndDescription>
-            <Title>
-              <TitleText>
+          <Title>
+            <img src={LogoBig} alt='Logo' />
+            {/* <TitleText>
                 Calendar Planer
-              </TitleText>
-            </Title>
+              </TitleText> */}
+          </Title>
+          <TitleAndDescription>
 
             <Description>
               <DescriptionText>

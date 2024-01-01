@@ -4,9 +4,14 @@ import { useNavigate } from 'react-router-dom';
 
 import { Calendar, Clock } from 'react-feather';
 
+import RenderIf from './RenderIf';
+
 import BackButton from './BackButton';
 import ReturnToTodayButton from './ReturnToTodayButton';
 import UserDropdown from './UserDropdown';
+
+import LogoInline from '../resources/logo-inline.png';
+import LogoCloud from '../resources/logo-cloud.png';
 
 const HeaderWrapper = styled.div`
   display: flex;
@@ -21,18 +26,18 @@ const HeaderWrapper = styled.div`
 `
 const LeftHeader = styled.div`
   display: flex;
-  padding: 1.25rem 1.875rem;
+  padding: 0 1.875rem;
   align-items: center;
-  gap: 1rem;
+  gap: 0.5rem 1rem;
   flex: 1 0 0;
-  align-self: stretch;
+  flex-wrap: wrap;
 `
 const MidHeader = styled.button`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.5rem;
   align-self: stretch;
 
   border: 0;
@@ -44,20 +49,16 @@ const HeaderTitle = styled.div`
   justify-content: center;
   align-items: center;
 `
-const HeaderTitleText = styled.div`
-  color: #F0E8DA;
-  font-family: Inter;
-  font-size: 2.125rem;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
-  letter-spacing: 0.27625rem;
-  text-align: center;
-`
 const ActualTime = styled.div`
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.25rem 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  @media (max-width: 612px) {
+    flex-direction: column;
+  }
 `
 const ActualDate = styled.div`
   display: flex;
@@ -100,12 +101,20 @@ const Header = () => {
   const [date, setDate] = React.useState<string>(new Date().toLocaleDateString('fr-FR'));
   const [time, setTime] = React.useState<string>(new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }));
 
+  const [logo, setLogo] = React.useState<string>(window.innerWidth > 730 ? 'inline' : 'cloud');
+
   React.useEffect(() => {
     const interval = setInterval(() => {
       setTime(new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }));
       setDate(new Date().toLocaleDateString('fr-FR'));
     }, 1000);
     return () => clearInterval(interval);
+  }, []);
+
+  React.useEffect(() => {
+    const resizeLogo = () => setLogo(window.innerWidth > 730 ? 'inline' : 'cloud')
+    window.addEventListener('resize', resizeLogo);
+    return () => window.removeEventListener('resize', resizeLogo);
   }, []);
 
   return (
@@ -121,9 +130,17 @@ const Header = () => {
 
         <MidHeader onClick={() => navigate('/')}>
           <HeaderTitle>
-            <HeaderTitleText>
+            <RenderIf isTrue={logo === 'inline'}>
+              <img src={LogoInline} alt='Logo' />
+            </RenderIf>
+
+            <RenderIf isTrue={logo === 'cloud'}>
+              <img src={LogoCloud} alt='Logo' />
+            </RenderIf>
+
+            {/* <HeaderTitleText>
               Calendar Planer
-            </HeaderTitleText>
+            </HeaderTitleText> */}
           </HeaderTitle>
 
           <ActualTime>
