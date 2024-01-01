@@ -37,6 +37,8 @@ const BackButton = () => {
   const setCalendarDayData = useCalendarStore((state: CalendarStoreInterface) => state.setCalendarDayData);
   const calendarMonthData = useCalendarStore((state: CalendarStoreInterface) => state.calendarMonthData);
 
+  const resetCalendarStore = useCalendarStore((state: CalendarStoreInterface) => state.resetCalendarStore);
+
   const monthsList = [
     'Janvier',
     'Février',
@@ -53,6 +55,8 @@ const BackButton = () => {
   ];
 
   const handleBackButton = () => {
+    resetCalendarStore();
+
     if (calendarType === 'day') {
       setCalendarDate({
         dayOfMonth: -1,
