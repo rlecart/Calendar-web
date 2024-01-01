@@ -93,7 +93,7 @@ const CloudSpan = styled.span`
 const EmojiSpan = styled.span`
     color: #F18D5E;
 `
-const LoginForm = styled.div`
+const LoginForm = styled.form`
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -268,9 +268,9 @@ const SignUp = () => {
               {error}
             </Alert>
           </RenderIf>
-          <LoginForm>
+          <LoginForm onSubmit={(e: React.FormEvent<HTMLFormElement>) => e.preventDefault()}>
             <AlreadySignUp>
-              <SignInWrapper onClick={() => navigate('/login')}>
+              <SignInWrapper type='button' onClick={() => navigate('/login')}>
                 <SignInText>
                   Déjà inscrit ?
                 </SignInText>
@@ -293,7 +293,7 @@ const SignUp = () => {
                 />
               </LoginInputs>
 
-              <LoginButton onClick={handleSubmit}>
+              <LoginButton type="submit" onClick={handleSubmit}>
                 <LoginButtonText>
                   S'inscrire
                 </LoginButtonText>

@@ -93,7 +93,7 @@ const CloudSpan = styled.span`
 const EmojiSpan = styled.span`
     color: #F18D5E;
 `
-const LoginForm = styled.div`
+const LoginForm = styled.form`
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -269,15 +269,15 @@ const Login = () => {
               {error}
             </Alert>
           </RenderIf>
-          <LoginForm>
+          <LoginForm onSubmit={(e: React.FormEvent<HTMLFormElement>) => e.preventDefault()}>
             <SignUpAndForgotPassword>
-              <SignUpWrapper onClick={() => navigate('/signup')}>
+              <SignUpWrapper type='button' onClick={() => navigate('/signup')}>
                 <SignUpText>
                   Pas encore inscrit ?
                 </SignUpText>
               </SignUpWrapper>
 
-              <ForgotPassword onClick={() => { }}>
+              <ForgotPassword type='button' onClick={() => { }}>
                 <ForgotPasswordText>
                   Mot de passe oublié ?
                 </ForgotPasswordText>
@@ -300,7 +300,7 @@ const Login = () => {
                 />
               </LoginInputs>
 
-              <LoginButton onClick={handleSubmit}>
+              <LoginButton type="submit" onClick={handleSubmit}>
                 <LoginButtonText>
                   Se connecter
                 </LoginButtonText>
