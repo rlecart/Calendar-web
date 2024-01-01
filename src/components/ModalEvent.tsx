@@ -174,6 +174,25 @@ const FormSubmitButton = styled.button`
   line-height: normal;
   border: 0;
 `
+const FormDeleteButton = styled.button`
+  display: flex;
+  height: 2.8125rem;
+  padding: 0.9375rem 1.25rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+  align-self: stretch;
+
+  border-radius: 0.625rem;
+  background: rgb(160, 74, 61, 0.5);
+  color: #F0E8DA;
+  font-family: Inter;
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  border: 0;
+`
 
 interface ModalNewEventInterface {
   show: boolean;
@@ -290,6 +309,26 @@ const ModalEvent = ({ show, type, eventData, handleClose }: ModalNewEventInterfa
       })
       setCalendarType('day');
 
+      handleCloseModal();
+    } catch (err) {
+      setError(`Une erreur est survenue : ${err}`);
+    }
+  }
+
+  const handleDeleteEvent = async () => {
+    try {
+      if (!eventData)
+        throw ('eventData is null')
+
+      const deletedEventRes = await axios.delete(`${API}/event/${eventData.id}`);
+      if (deletedEventRes.status !== 200)
+        throw (deletedEventRes.status);
+
+      const newCalendarDayData = {
+        ...calendarDayData,
+        data: calendarDayData.data.filter((event: CalendarEventDataInterface) => event.id !== eventData.id)
+      }
+      setCalendarDayData(newCalendarDayData);
       handleCloseModal();
     } catch (err) {
       setError(`Une erreur est survenue : ${err}`);
@@ -459,6 +498,12 @@ const ModalEvent = ({ show, type, eventData, handleClose }: ModalNewEventInterfa
                 {error}
               </Alert>
             </RenderIf>
+
+            <FormDeleteButton
+              onClick={handleDeleteEvent}
+            >
+              Supprimer
+            </FormDeleteButton>
 
             <FormSubmitButton
               onClick={handleSubmitEvent}
