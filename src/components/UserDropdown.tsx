@@ -41,6 +41,7 @@ const UserDropdown = () => {
       const logoutRes = axios.delete(`${API}/user/logout`)
       console.log('Déconnexion');
       localStorage.removeItem('authentificated');
+      localStorage.removeItem('username');
       resetCalendarStore();
       navigate('/login');
     }
@@ -56,7 +57,7 @@ const UserDropdown = () => {
         >
           <UserDropdownWrapper>
             <UserDropdownText>
-              R
+              {localStorage.getItem('username')?.charAt(0).toUpperCase()}
             </UserDropdownText>
           </UserDropdownWrapper>
         </Dropdown.Toggle>

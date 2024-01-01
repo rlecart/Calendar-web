@@ -225,6 +225,7 @@ const Login = () => {
         throw (loginRes);
 
       localStorage.setItem('authentificated', 'true');
+      localStorage.setItem('username', username);
 
       navigate('/');
     } catch (err) {

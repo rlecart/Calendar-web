@@ -225,6 +225,7 @@ const SignUp = () => {
         throw (signUpRes.status);
 
       localStorage.setItem('authentificated', 'true');
+      localStorage.setItem('username', username);
 
       navigate('/');
     } catch (err) {
