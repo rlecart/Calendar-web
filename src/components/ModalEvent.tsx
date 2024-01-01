@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import { Alert } from 'react-bootstrap';
-import { ToggleSlider } from 'react-toggle-slider';
+// import { ToggleSlider } from 'react-toggle-slider';
 import { X } from 'react-feather';
 
 import { CalendarDayDataInterface, CalendarEventDataInterface, CalendarStoreInterface, useCalendarStore } from '../stores/calendarStore';

@@ -8,6 +8,8 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import Alert from 'react-bootstrap/Alert';
 
 import RenderIf from '../components/RenderIf';
+import axios from 'axios';
+import { API } from '../api';
 
 const Background = styled.div`
     width: 100%;
@@ -211,28 +213,30 @@ const Login = () => {
 
   const [error, setError] = React.useState<string>('');
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setError('');
 
-    let status = 404;
-    if (username === 'abc')
-      status = 200;
+    try {
+      const loginRes = await axios.post(`${API}/user/login`, {
+        username: username,
+        password: password,
+      }, { withCredentials: true });
+      if (loginRes.status !== 200)
+        throw (loginRes);
 
-    const fakeRes = {
-      status: status,
-      data: 'fake-jwt',
+      localStorage.setItem('authentificated', 'true');
+
+      navigate('/');
+    } catch (err) {
+      console.log('err', err)
+      if (err.response.status === 404)
+        setError('Identifiant ou mot de passe incorrect.');
+      else if (err.response.status !== 200)
+        setError('Une erreur est survenue.');
     }
-
-    if (fakeRes.status !== 200) {
-      setError('Identifiant ou mot de passe incorrect.');
-      return;
-    }
-
-    localStorage.setItem('jwt', fakeRes.data);
-    navigate('/');
   }
 
-  const isAuthenticated = localStorage.getItem('jwt') !== null;
+  const isAuthenticated = localStorage.getItem('authentificated') !== null;
 
   if (isAuthenticated)
     return <Navigate to="/" />

@@ -3,6 +3,8 @@ import { ButtonGroup, Dropdown, DropdownButton } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { CalendarStoreInterface, useCalendarStore } from '../stores/calendarStore';
+import axios from 'axios';
+import { API } from '../api';
 
 const UserDropdownWrapper = styled.div`
   display: flex;
@@ -31,13 +33,14 @@ const UserDropdown = () => {
 
   const resetCalendarStore = useCalendarStore((state: CalendarStoreInterface) => state.resetCalendarStore);
 
-  const handleSelect = (e: string) => {
+  const handleSelect = async (e: string) => {
     if (e === '1') {
       console.log('Profil');
     }
     else if (e === '2') {
+      const logoutRes = axios.delete(`${API}/user/logout`)
       console.log('Déconnexion');
-      localStorage.removeItem('jwt');
+      localStorage.removeItem('authenticated');
       resetCalendarStore();
       navigate('/login');
     }

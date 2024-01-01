@@ -8,6 +8,8 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import Alert from 'react-bootstrap/Alert';
 
 import RenderIf from '../components/RenderIf';
+import axios from 'axios';
+import { API } from '../api';
 
 const Background = styled.div`
     width: 100%;
@@ -211,32 +213,29 @@ const SignUp = () => {
 
   const [error, setError] = React.useState<string>('');
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setError('');
 
-    let status = 403;
-    if (username === 'abc')
-      status = 200;
+    try {
+      const signUpRes = await axios.post(`${API}/user/signup`, {
+        username: username,
+        password: password,
+      });
+      if (signUpRes.status !== 200)
+        throw (signUpRes.status);
 
-    const fakeRes = {
-      status: status,
-      data: 'fake-jwt',
-    }
+      localStorage.setItem('authentificated', 'true');
 
-    if (fakeRes.status === 403) {
-      setError('Cet identifiant est déjà pris.');
-      return;
+      navigate('/');
+    } catch (err) {
+      if (err.response.status === 409)
+        setError('Cet identifiant est déjà pris.');
+      else if (err.response.status !== 200)
+        setError('Une erreur est survenue.');
     }
-    else if (fakeRes.status !== 200) {
-      setError('Une erreur est survenue.');
-      return;
-    }
-
-    localStorage.setItem('jwt', fakeRes.data);
-    navigate('/');
   }
 
-  const isAuthenticated = localStorage.getItem('jwt') !== null;
+  const isAuthenticated = localStorage.getItem('authentificated') !== null;
 
   if (isAuthenticated)
     return <Navigate to="/" />

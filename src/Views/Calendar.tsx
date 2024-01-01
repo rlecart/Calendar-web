@@ -11,6 +11,8 @@ import { CalendarDayDataInterface, CalendarMonthDataInterface, CalendarStoreInte
 import AddEventButton from '../components/AddEventButton';
 import CalendarSelector from '../components/CalendarSelector';
 import CalendarYear from '../components/CalendarYear';
+import { API } from '../api';
+import axios from 'axios';
 
 const CalendarWrapper = styled.div`
   width: 100vw;
@@ -52,6 +54,10 @@ const Calendar = () => {
   const getCalendarData = async () => {
     console.log('ca va fetch', calendarType, calendarDate)
     if (calendarType === 'day') {
+      const dayRes = await axios.get(`${API}/event/year/${calendarDate.year}/month/${calendarDate.month}/day/${calendarDate.dayOfMonth}`);
+      console.log('dayRes', dayRes)
+      return;
+
       // call API avec calendarType et calendarDate
       const fakeDayData = {
         dayOfMonth: calendarDate.dayOfMonth,
