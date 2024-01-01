@@ -1,8 +1,11 @@
 import * as React from 'react';
-import { CalendarStoreInterface, useCalendarStore } from '../stores/calendarStore';
 import styled from 'styled-components';
-import RenderIf from './RenderIf';
+
+import { ICalendarStore, useCalendarStore } from '../stores/calendarStore';
+
 import { ChevronLeft, ChevronRight } from 'react-feather';
+
+import RenderIf from './RenderIf';
 
 const ActualDateLine = styled.div`
   display: flex;
@@ -45,7 +48,6 @@ const SelectorButton = styled.button`
 
   border: 0;
   border-radius: 0.625rem;
-  // background: #F18D5E;
   background: none;
 
   &:hover {
@@ -58,9 +60,9 @@ const SelectorButton = styled.button`
 
 
 const ActualDate = () => {
-  const calendarType = useCalendarStore((state: CalendarStoreInterface) => state.calendarType);
-  const calendarDate = useCalendarStore((state: CalendarStoreInterface) => state.calendarDate);
-  const setCalendarDate = useCalendarStore((state: CalendarStoreInterface) => state.setCalendarDate);
+  const calendarType = useCalendarStore((state: ICalendarStore) => state.calendarType);
+  const calendarDate = useCalendarStore((state: ICalendarStore) => state.calendarDate);
+  const setCalendarDate = useCalendarStore((state: ICalendarStore) => state.setCalendarDate);
 
   const monthList = [
     'Janvier',
@@ -78,8 +80,6 @@ const ActualDate = () => {
   ];
 
   const handleChangeDate = (add: number) => {
-    console.log('avant', calendarDate)
-
     if (calendarType === 'day') {
       const oneMonthBefore = new Date(calendarDate.year, calendarDate.month - 1, 0);
       oneMonthBefore.setDate(oneMonthBefore.getDate() - 1);
@@ -118,7 +118,6 @@ const ActualDate = () => {
         year: newYear,
       })
     }
-    console.log('apres', calendarDate)
   }
 
   return (

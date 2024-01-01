@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { Navigate } from 'react-router-dom';
 
-interface WithAuthenticationProps {
+interface IWithAuthenticationProps {
   children: React.ReactNode;
 }
 
-const WithAuthentication = ({ children }: WithAuthenticationProps) => {
+const WithAuthentication = ({ children }: IWithAuthenticationProps) => {
   const isAuthenticated = localStorage.getItem('authentificated') !== null;
 
   if (!isAuthenticated)

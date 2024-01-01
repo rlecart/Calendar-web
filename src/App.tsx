@@ -1,15 +1,13 @@
 import * as React from 'react';
-
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './style/App.css';
-
 import {
   createBrowserRouter,
   Navigate,
   RouterProvider,
 } from "react-router-dom";
 
-import NotFound from './Views/NotFound';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './style/App.css';
+
 import Login from './Views/Login';
 import Calendar from './Views/Calendar';
 import SignUp from './Views/SignUp';

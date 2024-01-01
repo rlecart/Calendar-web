@@ -1,14 +1,12 @@
 import * as React from 'react';
-
-import '../style/Login.css';
-
-import styled from 'styled-components'
 import { Navigate, useNavigate } from 'react-router-dom';
+import styled from 'styled-components'
+import axios from 'axios';
 
 import Alert from 'react-bootstrap/Alert';
 
 import RenderIf from '../components/RenderIf';
-import axios from 'axios';
+
 import { API } from '../api';
 
 const Background = styled.div`
@@ -228,7 +226,8 @@ const SignUp = () => {
       localStorage.setItem('username', username);
 
       navigate('/');
-    } catch (err) {
+    }
+    catch (err) {
       if (err.response.status === 409)
         setError('Cet identifiant est déjà pris.');
       else if (err.response.status !== 200)

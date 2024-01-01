@@ -1,10 +1,10 @@
 import * as React from 'react';
-
 import styled from 'styled-components';
 
-import { ChevronLeft, ChevronRight } from 'react-feather';
+import { ICalendarStore, useCalendarStore } from '../stores/calendarStore';
 
-import { CalendarDayDataInterface, CalendarMonthDataInterface, CalendarStoreInterface, CalendarYearDataInterface, useCalendarStore } from '../stores/calendarStore';
+import { ChevronRight } from 'react-feather';
+
 import RenderIf from './RenderIf';
 
 const ReturnToTodayButtonElem = styled.button`
@@ -27,14 +27,11 @@ const ReturnToTodayButtonText = styled.div`
   line-height: normal;
 `
 
-
 const ReturnToTodayButton = () => {
-  const calendarType = useCalendarStore((state: CalendarStoreInterface) => state.calendarType);
-  const setCalendarType = useCalendarStore((state: CalendarStoreInterface) => state.setCalendarType);
-  const setCalendarDate = useCalendarStore((state: CalendarStoreInterface) => state.setCalendarDate);
-
-  const calendarDayData = useCalendarStore((state: CalendarStoreInterface) => state.calendarDayData);
-  const setCalendarDayData = useCalendarStore((state: CalendarStoreInterface) => state.setCalendarDayData);
+  const calendarType = useCalendarStore((state: ICalendarStore) => state.calendarType);
+  const calendarDayData = useCalendarStore((state: ICalendarStore) => state.calendarDayData);
+  const setCalendarType = useCalendarStore((state: ICalendarStore) => state.setCalendarType);
+  const setCalendarDate = useCalendarStore((state: ICalendarStore) => state.setCalendarDate);
 
   const handleReturnToTodayButton = () => {
     const today = new Date();

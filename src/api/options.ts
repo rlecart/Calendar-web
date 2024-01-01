@@ -1,4 +1,4 @@
-export interface OptionsInterface {
+export interface IOptions {
   front: {
     path: string,
     port: number,

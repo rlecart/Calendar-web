@@ -1,9 +1,12 @@
 import * as React from 'react';
-import { ButtonGroup, Dropdown, DropdownButton } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import { CalendarStoreInterface, useCalendarStore } from '../stores/calendarStore';
 import axios from 'axios';
+import styled from 'styled-components';
+
+import { ICalendarStore, useCalendarStore } from '../stores/calendarStore';
+
+import { Dropdown } from 'react-bootstrap';
+
 import { API } from '../api';
 
 const UserDropdownWrapper = styled.div`
@@ -31,14 +34,14 @@ const UserDropdownText = styled.div`
 const UserDropdown = () => {
   const navigate = useNavigate();
 
-  const resetCalendarStore = useCalendarStore((state: CalendarStoreInterface) => state.resetCalendarStore);
+  const resetCalendarStore = useCalendarStore((state: ICalendarStore) => state.resetCalendarStore);
 
   const handleSelect = async (e: string) => {
     if (e === '1') {
-      console.log('Profil');
+      // console.log('Profil');
     }
     else if (e === '2') {
-      const logoutRes = axios.delete(`${API}/user/logout`)
+      const logoutRes = await axios.delete(`${API}/user/logout`)
       console.log('Déconnexion');
       localStorage.removeItem('authentificated');
       localStorage.removeItem('username');
@@ -49,12 +52,8 @@ const UserDropdown = () => {
 
   return (
     <React.Fragment>
-      <Dropdown
-        onSelect={handleSelect}
-      >
-        <Dropdown.Toggle
-          style={{ background: 'transparent', border: 'none' }}
-        >
+      <Dropdown onSelect={handleSelect}>
+        <Dropdown.Toggle style={{ background: 'transparent', border: 'none' }}>
           <UserDropdownWrapper>
             <UserDropdownText>
               {localStorage.getItem('username')?.charAt(0).toUpperCase()}
@@ -64,17 +63,12 @@ const UserDropdown = () => {
 
         <Dropdown.Menu
           data-bs-theme={'dark'}
-          style={{
-            background: '#120E13',
-          }}
+          style={{ background: '#120E13', }}
         >
-          <Dropdown.Item
-            eventKey="1"
-          >
+          <Dropdown.Item eventKey="1">
             Profil
           </Dropdown.Item>
-          <Dropdown.Divider
-          />
+          <Dropdown.Divider />
           <Dropdown.Item
             eventKey="2"
             bsPrefix={'dropdown-item text-danger'}

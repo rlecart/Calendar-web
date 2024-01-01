@@ -1,10 +1,12 @@
 import * as React from 'react';
-import { Calendar, ChevronLeft, ChevronRight, Clock } from 'react-feather';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+
+import { Calendar, Clock } from 'react-feather';
+
 import BackButton from './BackButton';
 import ReturnToTodayButton from './ReturnToTodayButton';
 import UserDropdown from './UserDropdown';
-import { useNavigate } from 'react-router-dom';
 
 const HeaderWrapper = styled.div`
   display: flex;
@@ -92,11 +94,9 @@ const RightHeader = styled.div`
   flex: 1 0 0;
   align-self: stretch;
 `
-
-
 const Header = () => {
   const navigate = useNavigate();
-  
+
   const [date, setDate] = React.useState<string>(new Date().toLocaleDateString('fr-FR'));
   const [time, setTime] = React.useState<string>(new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }));
 
@@ -130,7 +130,7 @@ const Header = () => {
             <ActualDate>
               <Calendar size={18} color='#F27A7A' />
               <ActualDateText>
-                {new Date().toLocaleDateString('fr-FR')}
+                {date}
               </ActualDateText>
             </ActualDate>
 

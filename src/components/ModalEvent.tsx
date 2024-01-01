@@ -1,17 +1,17 @@
 import * as React from 'react';
-
 import styled from 'styled-components';
-import Button from 'react-bootstrap/Button';
+import axios from 'axios';
+
+import { ICalendarDayData, ICalendarEventData, ICalendarStore, useCalendarStore } from '../stores/calendarStore';
+
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import { Alert } from 'react-bootstrap';
-// import { ToggleSlider } from 'react-toggle-slider';
 import { X } from 'react-feather';
-
-import { CalendarDayDataInterface, CalendarEventDataInterface, CalendarStoreInterface, useCalendarStore } from '../stores/calendarStore';
+// import { ToggleSlider } from 'react-toggle-slider';
 
 import RenderIf from './RenderIf';
-import axios from 'axios';
+
 import { API } from '../api';
 
 const ModalHeader = styled.div`
@@ -102,7 +102,6 @@ const DatePickerWrapper = styled.div`
   justify-content: center;
   align-items: center;
   gap: 0.625rem;
-  // align-self: stretch;
 `
 const DateInput = styled(Form.Control)`
   display: flex;
@@ -110,14 +109,12 @@ const DateInput = styled(Form.Control)`
   justify-content: center;
   align-items: center;
   gap: 0.625rem;
-  // align-self: stretch;
 
   border-radius: 0.3125rem;
   background: #;
   border: 0;
   width: 7.15rem;
   height: 2.25rem;
-  // align-self: auto;
 
   color: rgba(182, 107, 56, 1);
   &::placeholder {
@@ -137,7 +134,6 @@ const HourInput = styled(Form.Control)`
   border: 0;
   width: 4.8rem;
   height: 2.25rem;
-  // align-self: auto;
 
   color: rgba(182, 107, 56, 1);
   &::placeholder {
@@ -194,14 +190,19 @@ const FormDeleteButton = styled.button`
   border: 0;
 `
 
-interface ModalNewEventInterface {
+interface IModalNewEvent {
   show: boolean;
   type: string;
-  eventData: CalendarEventDataInterface | null;
+  eventData: ICalendarEventData | null;
   handleClose: () => void;
 }
 
-const ModalEvent = ({ show, type, eventData, handleClose }: ModalNewEventInterface) => {
+const ModalEvent = ({ show, type, eventData, handleClose }: IModalNewEvent) => {
+  const calendarDayData = useCalendarStore((state: ICalendarStore) => state.calendarDayData);
+  const setCalendarDate = useCalendarStore((state: ICalendarStore) => state.setCalendarDate);
+  const setCalendarType = useCalendarStore((state: ICalendarStore) => state.setCalendarType);
+  const setCalendarDayData = useCalendarStore((state: ICalendarStore) => state.setCalendarDayData);
+
   const [title, setTitle] = React.useState<string>('');
   const [description, setDescription] = React.useState<string>('');
   const [color, setColor] = React.useState<string>('');
@@ -212,11 +213,6 @@ const ModalEvent = ({ show, type, eventData, handleClose }: ModalNewEventInterfa
 
   const [error, setError] = React.useState<string>('');
 
-  const setCalendarType = useCalendarStore((state: CalendarStoreInterface) => state.setCalendarType);
-  const setCalendarDate = useCalendarStore((state: CalendarStoreInterface) => state.setCalendarDate);
-  const calendarDayData = useCalendarStore((state: CalendarStoreInterface) => state.calendarDayData);
-  const setCalendarDayData = useCalendarStore((state: CalendarStoreInterface) => state.setCalendarDayData);
-
   const handleCloseModal = () => {
     resetAllFields();
     handleClose();
@@ -226,7 +222,6 @@ const ModalEvent = ({ show, type, eventData, handleClose }: ModalNewEventInterfa
     setError('');
 
     try {
-
       const splittedDate = date.split('/');
       const splittedStartTime = startTime.split(':');
       const splittedEndTime = endTime.split(':');
@@ -247,14 +242,13 @@ const ModalEvent = ({ show, type, eventData, handleClose }: ModalNewEventInterfa
           month: +splittedDate[1],
           year: +splittedDate[2],
         });
-        console.log('newEventRes', newEventRes)
         if (newEventRes.status !== 200)
           throw (newEventRes.status)
 
         if (calendarDayData.dayOfMonth === +splittedDate[0]
           && calendarDayData.month === +splittedDate[1]
           && calendarDayData.year === +splittedDate[2]) {
-          const newDayData: CalendarDayDataInterface = {
+          const newDayData: ICalendarDayData = {
             dayOfMonth: +splittedDate[0],
             month: +splittedDate[1],
             year: +splittedDate[2],
@@ -282,14 +276,13 @@ const ModalEvent = ({ show, type, eventData, handleClose }: ModalNewEventInterfa
           month: +splittedDate[1],
           year: +splittedDate[2],
         });
-        console.log('editEventRes', editEventRes)
         if (editEventRes.status !== 200)
           throw (editEventRes.status)
 
         if (calendarDayData.dayOfMonth === +splittedDate[0]
           && calendarDayData.month === +splittedDate[1]
           && calendarDayData.year === +splittedDate[2]) {
-          const newDayData: CalendarDayDataInterface = {
+          const newDayData: ICalendarDayData = {
             dayOfMonth: +splittedDate[0],
             month: +splittedDate[1],
             year: +splittedDate[2],
@@ -310,7 +303,8 @@ const ModalEvent = ({ show, type, eventData, handleClose }: ModalNewEventInterfa
       setCalendarType('day');
 
       handleCloseModal();
-    } catch (err) {
+    }
+    catch (err) {
       setError(`Une erreur est survenue : ${err}`);
     }
   }
@@ -326,11 +320,12 @@ const ModalEvent = ({ show, type, eventData, handleClose }: ModalNewEventInterfa
 
       const newCalendarDayData = {
         ...calendarDayData,
-        data: calendarDayData.data.filter((event: CalendarEventDataInterface) => event.id !== eventData.id)
+        data: calendarDayData.data.filter((event: ICalendarEventData) => event.id !== eventData.id)
       }
       setCalendarDayData(newCalendarDayData);
       handleCloseModal();
-    } catch (err) {
+    }
+    catch (err) {
       setError(`Une erreur est survenue : ${err}`);
     }
   }
@@ -364,12 +359,9 @@ const ModalEvent = ({ show, type, eventData, handleClose }: ModalNewEventInterfa
 
   return (
     <React.Fragment>
-
       <Modal
         size='lg'
-        style={{
-          backgroundColor: 'transparent',
-        }}
+        style={{ backgroundColor: 'transparent', }}
         contentClassName='bg-transparent border-0'
         show={show}
         onHide={handleCloseModal}
@@ -500,17 +492,12 @@ const ModalEvent = ({ show, type, eventData, handleClose }: ModalNewEventInterfa
             </RenderIf>
 
             <RenderIf isTrue={type === 'edit' && eventData !== null}>
-              <FormDeleteButton
-                onClick={handleDeleteEvent}
-              >
+              <FormDeleteButton onClick={handleDeleteEvent}>
                 Supprimer
               </FormDeleteButton>
             </RenderIf>
 
-            <FormSubmitButton
-              onClick={handleSubmitEvent}
-            >
-
+            <FormSubmitButton onClick={handleSubmitEvent}>
               <RenderIf isTrue={type === 'new'}>
                 Ajouter
               </RenderIf>
@@ -518,7 +505,6 @@ const ModalEvent = ({ show, type, eventData, handleClose }: ModalNewEventInterfa
               <RenderIf isTrue={type === 'edit'}>
                 Modifier
               </RenderIf>
-
             </FormSubmitButton>
 
           </FormEvent>

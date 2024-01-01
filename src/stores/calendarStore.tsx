@@ -1,14 +1,14 @@
 import { create } from 'zustand';
 
-export type CalendarTypeType = 'selector' | 'year' | 'month' | 'day';
+export type TCalendarType = 'selector' | 'year' | 'month' | 'day';
 
-export interface CalendarDateInterface {
+export interface ICalendarDate {
   dayOfMonth: number,
   month: number,
   year: number,
 }
 
-export interface CalendarEventDataInterface {
+export interface ICalendarEventData {
   id: number,
   title: string,
   description: string,
@@ -20,36 +20,39 @@ export interface CalendarEventDataInterface {
   month: number,
   year: number,
 }
-export interface CalendarDayDataInterface {
+
+export interface ICalendarDayData {
   dayOfMonth: number,
   month: number,
   year: number,
-  data: Array<CalendarEventDataInterface>,
+  data: Array<ICalendarEventData>,
 }
-export interface CalendarMonthDataInterface {
+
+export interface ICalendarMonthData {
   month: number,
   year: number,
-  data: Array<CalendarDayDataInterface>,
+  data: Array<ICalendarDayData>,
 }
-export interface CalendarYearDataInterface {
+
+export interface ICalendarYearData {
   year: number,
-  data: Array<CalendarMonthDataInterface>,
+  data: Array<ICalendarMonthData>,
 }
 
-export interface CalendarStoreInterface {
-  calendarType: CalendarTypeType;
-  calendarDate: CalendarDateInterface;
+export interface ICalendarStore {
+  calendarType: TCalendarType;
+  calendarDate: ICalendarDate;
 
-  calendarDayData: CalendarDayDataInterface;
-  calendarMonthData: CalendarMonthDataInterface;
-  calendarYearData: CalendarYearDataInterface;
+  calendarDayData: ICalendarDayData;
+  calendarMonthData: ICalendarMonthData;
+  calendarYearData: ICalendarYearData;
 
-  setCalendarType: (newCalendarType: CalendarTypeType) => void;
-  setCalendarDate: (newCalendarType: CalendarDateInterface) => void;
+  setCalendarType: (newCalendarType: TCalendarType) => void;
+  setCalendarDate: (newCalendarType: ICalendarDate) => void;
 
-  setCalendarDayData: (newCalendarDayData: CalendarDayDataInterface) => void;
-  setCalendarMonthData: (newCalendarMonthData: CalendarMonthDataInterface) => void;
-  setCalendarYearData: (newCalendarYearData: CalendarYearDataInterface) => void;
+  setCalendarDayData: (newCalendarDayData: ICalendarDayData) => void;
+  setCalendarMonthData: (newCalendarMonthData: ICalendarMonthData) => void;
+  setCalendarYearData: (newCalendarYearData: ICalendarYearData) => void;
 
   resetCalendarStore: () => void;
 }
@@ -65,24 +68,24 @@ export const useCalendarStore = create((set) => ({
   calendarMonthData: {},
   calendarYearData: {},
 
-  setCalendarType: (newCalendarType: CalendarTypeType) => set(() => ({
+  setCalendarType: (newCalendarType: TCalendarType) => set(() => ({
     calendarType: newCalendarType,
   })),
-  setCalendarDate: (newCalendarDate: CalendarDateInterface) => set(() => ({
+  setCalendarDate: (newCalendarDate: ICalendarDate) => set(() => ({
     calendarDate: newCalendarDate,
   })),
 
-  setCalendarDayData: (newCalendarDayData: CalendarDayDataInterface) => set(() => ({
+  setCalendarDayData: (newCalendarDayData: ICalendarDayData) => set(() => ({
     calendarDayData: newCalendarDayData,
   })),
-  setCalendarMonthData: (newCalendarMonthData: CalendarMonthDataInterface) => set(() => ({
+  setCalendarMonthData: (newCalendarMonthData: ICalendarMonthData) => set(() => ({
     calendarMonthData: newCalendarMonthData,
   })),
-  setCalendarYearData: (newCalendarYearData: CalendarYearDataInterface) => set(() => ({
+  setCalendarYearData: (newCalendarYearData: ICalendarYearData) => set(() => ({
     calendarYearData: newCalendarYearData,
   })),
 
-  resetCalendarStore: () => set((state: CalendarStoreInterface) => ({
+  resetCalendarStore: () => set((state: ICalendarStore) => ({
     calendarType: 'month',
     calendarDate: {
       dayOfMonth: -1,

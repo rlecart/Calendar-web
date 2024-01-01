@@ -1,5 +1,4 @@
 import * as React from 'react';
-
 import styled from 'styled-components';
 
 import { Plus } from 'react-feather';
@@ -26,14 +25,8 @@ const AddEventButtonWrapper = styled.button`
 const AddEventButton = () => {
   const [show, setShow] = React.useState<boolean>(false);
 
-  const handleClose = () => {
-    // resetAllFields();
-    setShow(false)
-  };
-  const handleShow = () => {
-    // resetAllFields();
-    setShow(true)
-  };
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   return (
     <React.Fragment>

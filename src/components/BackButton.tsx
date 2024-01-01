@@ -1,10 +1,10 @@
 import * as React from 'react';
-
 import styled from 'styled-components';
+
+import { ICalendarStore, useCalendarStore } from '../stores/calendarStore';
 
 import { ChevronLeft } from 'react-feather';
 
-import { CalendarDayDataInterface, CalendarMonthDataInterface, CalendarStoreInterface, CalendarYearDataInterface, useCalendarStore } from '../stores/calendarStore';
 import RenderIf from './RenderIf';
 
 const BackButtonWrapper = styled.button`
@@ -28,16 +28,12 @@ const BackButtonText = styled.div`
 `
 
 const BackButton = () => {
-  const calendarType = useCalendarStore((state: CalendarStoreInterface) => state.calendarType);
-  const setCalendarType = useCalendarStore((state: CalendarStoreInterface) => state.setCalendarType);
-  const calendarDate = useCalendarStore((state: CalendarStoreInterface) => state.calendarDate);
-  const setCalendarDate = useCalendarStore((state: CalendarStoreInterface) => state.setCalendarDate);
-
-  const calendarDayData = useCalendarStore((state: CalendarStoreInterface) => state.calendarDayData);
-  const setCalendarDayData = useCalendarStore((state: CalendarStoreInterface) => state.setCalendarDayData);
-  const calendarMonthData = useCalendarStore((state: CalendarStoreInterface) => state.calendarMonthData);
-
-  const resetCalendarStore = useCalendarStore((state: CalendarStoreInterface) => state.resetCalendarStore);
+  const calendarType = useCalendarStore((state: ICalendarStore) => state.calendarType);
+  const setCalendarType = useCalendarStore((state: ICalendarStore) => state.setCalendarType);
+  const calendarDayData = useCalendarStore((state: ICalendarStore) => state.calendarDayData);
+  const calendarMonthData = useCalendarStore((state: ICalendarStore) => state.calendarMonthData);
+  const setCalendarDate = useCalendarStore((state: ICalendarStore) => state.setCalendarDate);
+  const resetCalendarStore = useCalendarStore((state: ICalendarStore) => state.resetCalendarStore);
 
   const monthsList = [
     'Janvier',

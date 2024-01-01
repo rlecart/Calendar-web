@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { createRoot } from 'react-dom/client'
-import './style/index.css';
-import App from './App';
 import axios from 'axios';
+
+import './style/index.css';
+
+import App from './App';
 
 axios.defaults.withCredentials = true;
 

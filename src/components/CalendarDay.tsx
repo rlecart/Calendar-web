@@ -1,7 +1,10 @@
 import * as React from 'react';
 import styled from 'styled-components';
+
+import { ICalendarDayData, ICalendarEventData, ICalendarStore, useCalendarStore } from '../stores/calendarStore';
+
 import RenderIf from './RenderIf';
-import { CalendarDayDataInterface, CalendarEventDataInterface, CalendarStoreInterface, useCalendarStore } from '../stores/calendarStore';
+
 import ActualDate from './ActualDate';
 import WeekDays from './WeekDays';
 import ModalEvent from './ModalEvent';
@@ -99,10 +102,8 @@ const DayNumberText = styled.div`
 
 const EventsWrapper = styled.div`
   display: flex;
-  // padding: 2.5rem;
   flex-direction: column;
   align-items: center;
-  // gap: 2.5rem;
   flex: 1 0 0;
   align-self: stretch;
   position: relative;
@@ -146,14 +147,14 @@ const TimeLine = styled.div`
 `
 
 const EventsListWrapperAbsolute = styled.div`
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    padding-left: 8rem;
-    padding-right: 5rem;
-    padding-top: 3.25rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  padding-left: 8rem;
+  padding-right: 5rem;
+  padding-top: 3.25rem;
 `
 const EventCard = styled.button`
   position: absolute;
@@ -210,14 +211,18 @@ const ActualTimeCursorLine = styled.div`
   border-radius: 2rem;
 `
 
-
 const CalendarDay = () => {
-  const setCalendarDate = useCalendarStore((state: CalendarStoreInterface) => state.setCalendarDate);
+  const calendarMonthData = useCalendarStore((state: ICalendarStore) => state.calendarMonthData);
+  const calendarDayData = useCalendarStore((state: ICalendarStore) => state.calendarDayData);
+  const setCalendarDayData = useCalendarStore((state: ICalendarStore) => state.setCalendarDayData);
+  const setCalendarDate = useCalendarStore((state: ICalendarStore) => state.setCalendarDate);
 
-  const calendarMonthData = useCalendarStore((state: CalendarStoreInterface) => state.calendarMonthData);
+  const eventsTimeScaleRef = React.useRef<HTMLDivElement>(null);
+  const [timeLineHeightPerHour, setTimeLineHeightPerHour] = React.useState<number>(0);
+  const [actualTimeCursorPosition, setActualTimeCursorPosition] = React.useState<number>(-1000);
 
-  const calendarDayData = useCalendarStore((state: CalendarStoreInterface) => state.calendarDayData);
-  const setCalendarDayData = useCalendarStore((state: CalendarStoreInterface) => state.setCalendarDayData);
+  const [showModalEvent, setShowModalEvent] = React.useState<boolean>(false);
+  const [selectedEvent, setSelectedEvent] = React.useState<ICalendarEventData | null>(null);
 
   const slicedCalendarData = calendarMonthData?.data && [
     calendarMonthData.data.slice(0, 7),
@@ -226,13 +231,9 @@ const CalendarDay = () => {
     calendarMonthData.data.slice(21, 28),
     calendarMonthData.data.slice(28, 31),
   ]
+  const actualWeek = slicedCalendarData?.find((week) => week.some((day: ICalendarDayData) => day.dayOfMonth === calendarDayData.dayOfMonth));
 
-  const actualWeek = slicedCalendarData?.find((week) => week.some((day: CalendarDayDataInterface) => day.dayOfMonth === calendarDayData.dayOfMonth));
-  console.log('actual week', actualWeek)
-
-  const eventsTimeScaleRef = React.useRef<HTMLDivElement>(null);
-
-  const handleSelectAnotherDay = (selectedDay: CalendarDayDataInterface) => {
+  const handleSelectAnotherDay = (selectedDay: ICalendarDayData) => {
     setCalendarDate({
       dayOfMonth: selectedDay.dayOfMonth,
       month: selectedDay.month,
@@ -241,15 +242,19 @@ const CalendarDay = () => {
     setCalendarDayData(selectedDay);
   }
 
-  const [timeLineHeightPerHour, setTimeLineHeightPerHour] = React.useState<number>(0);
+  const handleCloseModalEvent = () => setShowModalEvent(false);
+  const handleShowModalEvent = () => setShowModalEvent(true);
+
+  const handleEditEvent = (event: ICalendarEventData) => {
+    setSelectedEvent(event);
+    handleShowModalEvent();
+  }
 
   React.useEffect(() => {
     const timeLineHeight = eventsTimeScaleRef.current?.clientHeight
     setTimeLineHeightPerHour(timeLineHeight ? (timeLineHeight - 40) / 24 : 0);
     console.log(timeLineHeightPerHour)
   }, [eventsTimeScaleRef?.current?.clientHeight])
-
-  const [actualTimeCursorPosition, setActualTimeCursorPosition] = React.useState<number>(-1000);
 
   React.useEffect(() => {
     const interval = setInterval(() => {
@@ -258,29 +263,13 @@ const CalendarDay = () => {
     return () => clearInterval(interval);
   }, [timeLineHeightPerHour]);
 
-  const [show, setShow] = React.useState<boolean>(false);
-  const [selectedEvent, setSelectedEvent] = React.useState<CalendarEventDataInterface | null>(null);
-
-  const handleClose = () => {
-    setShow(false)
-  };
-  const handleShow = () => {
-    setShow(true)
-  };
-
-  const handleEditEvent = (event: CalendarEventDataInterface) => {
-    setSelectedEvent(event);
-    handleShow();
-  }
-
-
   return (
     <React.Fragment>
       <ModalEvent
-        show={show}
+        show={showModalEvent}
         type='edit'
         eventData={selectedEvent}
-        handleClose={handleClose}
+        handleClose={handleCloseModalEvent}
       />
 
       <ActualDate />
@@ -289,7 +278,7 @@ const CalendarDay = () => {
 
       <DaysLineWrapper>
         <DaysLine>
-          {actualWeek?.map((day: CalendarDayDataInterface, index: number) => (
+          {actualWeek?.map((day: ICalendarDayData, index: number) => (
             <React.Fragment key={index}>
               <RenderIf isTrue={calendarDayData.dayOfMonth === day.dayOfMonth}>
                 <DayNumberSelected>
@@ -346,7 +335,7 @@ const CalendarDay = () => {
           </EventsTimeScale>
 
           <EventsListWrapperAbsolute>
-            {calendarDayData?.data?.map((event: CalendarEventDataInterface, index: number) => {
+            {calendarDayData?.data?.map((event: ICalendarEventData, index: number) => {
               const realStartTime = new Date(event.startTime);
               const realEndTime = new Date(event.endTime);
 
@@ -374,18 +363,11 @@ const CalendarDay = () => {
           </EventsListWrapperAbsolute>
 
           <RenderIf isTrue={new Date().getDate() === calendarDayData.dayOfMonth && new Date().getMonth() + 1 === calendarDayData.month && new Date().getFullYear() === calendarDayData.year}>
-            <ActualTimeCursor
-              style={{
-                top: `${actualTimeCursorPosition}px`,
-              }}
-            >
+            <ActualTimeCursor style={{ top: `${actualTimeCursorPosition}px`, }}>
               <svg xmlns="http://www.w3.org/2000/svg" width="13" height="16" viewBox="0 0 13 16" fill="none">
                 <path d="M12.5 6.75L0 0.783122V15.2169L12.5 9.25V6.75ZM1 9.25C1.69036 9.25 2.25 8.69036 2.25 8C2.25 7.30964 1.69036 6.75 1 6.75V9.25Z" fill="#EF3636" />
               </svg>
               <ActualTimeCursorLine />
-              {/* <svg xmlns="http://www.w3.org/2000/svg" width="1812" height="18" viewBox="0 0 1812 18" fill="none">
-              <path d="M15 7.5L0 0.339746V17.6603L15 10.5V7.5ZM5082 10.5C5082.83 10.5 5083.5 9.82843 5083.5 9C5083.5 8.17157 5082.83 7.5 5082 7.5V10.5ZM13.5 10.5H5082V7.5H13.5V10.5Z" fill="#EF3636" />
-            </svg> */}
             </ActualTimeCursor>
           </RenderIf>
 

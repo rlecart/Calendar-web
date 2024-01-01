@@ -1,7 +1,8 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import RenderIf from './RenderIf';
-import { CalendarDayDataInterface, CalendarEventDataInterface, CalendarStoreInterface, useCalendarStore } from '../stores/calendarStore';
+
+import { ICalendarStore, useCalendarStore } from '../stores/calendarStore';
+
 import { ChevronRight } from 'react-feather';
 
 const YearBackground = styled.div`
@@ -81,14 +82,11 @@ const SubmitYearButton = styled.button`
 `
 
 const CalendarSelector = () => {
+  const setCalendarType = useCalendarStore((state: ICalendarStore) => state.setCalendarType);
+  const setCalendarDate = useCalendarStore((state: ICalendarStore) => state.setCalendarDate);
+
   const [year, setYear] = React.useState<string>('');
   const [month, setMonth] = React.useState<number>(0);
-
-  const setCalendarType = useCalendarStore((state: CalendarStoreInterface) => state.setCalendarType);
-  const setCalendarDate = useCalendarStore((state: CalendarStoreInterface) => state.setCalendarDate);
-
-  const calendarMonthData = useCalendarStore((state: CalendarStoreInterface) => state.calendarMonthData);
-  const setCalendarMonthData = useCalendarStore((state: CalendarStoreInterface) => state.setCalendarMonthData);
 
   const monthList = [
     'Janvier',
@@ -122,9 +120,7 @@ const CalendarSelector = () => {
             value={month}
             onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setMonth(+e.target.value)}
           >
-            {monthList.map((month, index) => (
-              <option key={index} value={index}>{month}</option>
-            ))}
+            {monthList.map((month, index) => <option key={index} value={index}>{month}</option>)}
           </MonthSelect>
           <YearInput
             placeholder="2023"

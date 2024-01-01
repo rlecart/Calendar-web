@@ -1,7 +1,10 @@
 import * as React from 'react';
 import styled from 'styled-components';
+
+import { useCalendarStore, ICalendarStore, ICalendarDayData, ICalendarEventData } from '../stores/calendarStore';
+
 import RenderIf from './RenderIf';
-import { useCalendarStore, CalendarStoreInterface, CalendarDayDataInterface, CalendarEventDataInterface } from '../stores/calendarStore';
+
 import ActualDate from './ActualDate';
 import WeekDays from './WeekDays';
 
@@ -91,11 +94,9 @@ const CalendarDayEmpty = styled.div`
 `
 
 const CalendarMonth = () => {
-  const setCalendarDate = useCalendarStore((state: CalendarStoreInterface) => state.setCalendarDate);
-  const setCalendarType = useCalendarStore((state: CalendarStoreInterface) => state.setCalendarType);
-
-  const calendarMonthData = useCalendarStore((state: CalendarStoreInterface) => state.calendarMonthData);
-  const setCalendarDayData = useCalendarStore((state: CalendarStoreInterface) => state.setCalendarDayData);
+  const calendarMonthData = useCalendarStore((state: ICalendarStore) => state.calendarMonthData);
+  const setCalendarType = useCalendarStore((state: ICalendarStore) => state.setCalendarType);
+  const setCalendarDate = useCalendarStore((state: ICalendarStore) => state.setCalendarDate);
 
   const slicedCalendarData = calendarMonthData?.data && [
     calendarMonthData.data.slice(0, 7),
@@ -105,8 +106,7 @@ const CalendarMonth = () => {
     calendarMonthData.data.slice(28, 31),
   ]
 
-  const handleClickBloc = (day: CalendarDayDataInterface) => {
-    // console.log(day)
+  const handleClickBloc = (day: ICalendarDayData) => {
     setCalendarDate({
       dayOfMonth: day.dayOfMonth,
       month: day.month,
@@ -123,15 +123,16 @@ const CalendarMonth = () => {
       <WeekDays />
 
       <CalendarDaysWrapper>
-        {slicedCalendarData?.map((week: Array<CalendarDayDataInterface>, index: number) => (
+        {slicedCalendarData?.map((week: Array<ICalendarDayData>, index: number) => (
           <DayLine key={index}>
             {week.map((day, index) => (
               <CalendarDayBloc
                 key={index}
-                style={day.dayOfMonth === new Date().getDate() && day.month === new Date().getMonth() + 1 && day.year === new Date().getFullYear() ? {
-                  outline: `1px solid #B66B38`,
-                  outlineOffset: `-1px`,
-                } : {}}
+                style={
+                  day.dayOfMonth === new Date().getDate() && day.month === new Date().getMonth() + 1 && day.year === new Date().getFullYear()
+                    ? { outline: `1px solid #B66B38`, outlineOffset: `-1px`, }
+                    : {}
+                }
                 onClick={() => handleClickBloc(day)}
               >
                 <CalendarDayText>
@@ -139,7 +140,7 @@ const CalendarMonth = () => {
                 </CalendarDayText>
 
                 <CalendarDayData>
-                  {day.data.map((data: CalendarEventDataInterface, index: number) => (
+                  {day.data.map((data: ICalendarEventData, index: number) => (
                     <CalendarDataBadge key={index} style={{ backgroundColor: `${data.color}` }}>
                       <CalendarDataBadgeText>
                         {data.title}

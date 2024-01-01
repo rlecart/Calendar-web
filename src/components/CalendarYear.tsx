@@ -1,8 +1,8 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import RenderIf from './RenderIf';
-import { useCalendarStore, CalendarStoreInterface, CalendarDayDataInterface, CalendarEventDataInterface } from '../stores/calendarStore';
-import { ChevronLeft, ChevronRight } from 'react-feather';
+
+import { useCalendarStore, ICalendarStore } from '../stores/calendarStore';
+
 import ActualDate from './ActualDate';
 
 const CalendarMonthsWrapper = styled.div`
@@ -99,12 +99,9 @@ const SingleMonthText = styled.div`
 `
 
 const CalendarYear = () => {
-  const calendarDate = useCalendarStore((state: CalendarStoreInterface) => state.calendarDate);
-  const setCalendarDate = useCalendarStore((state: CalendarStoreInterface) => state.setCalendarDate);
-  const setCalendarType = useCalendarStore((state: CalendarStoreInterface) => state.setCalendarType);
-
-  const calendarMonthData = useCalendarStore((state: CalendarStoreInterface) => state.calendarMonthData);
-  const setCalendarDayData = useCalendarStore((state: CalendarStoreInterface) => state.setCalendarDayData);
+  const calendarDate = useCalendarStore((state: ICalendarStore) => state.calendarDate);
+  const setCalendarDate = useCalendarStore((state: ICalendarStore) => state.setCalendarDate);
+  const setCalendarType = useCalendarStore((state: ICalendarStore) => state.setCalendarType);
 
   const monthList = [
     ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin'],
@@ -112,7 +109,6 @@ const CalendarYear = () => {
   ]
 
   const handleClickBloc = (month: number) => {
-    // console.log(day)
     setCalendarDate({
       dayOfMonth: -1,
       month: month,
