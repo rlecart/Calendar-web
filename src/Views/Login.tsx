@@ -254,9 +254,6 @@ const Login = () => {
         <RightPanel>
           <Title>
             <img src={LogoBig} alt='Logo' />
-            {/* <TitleText>
-                Calendar Planer
-              </TitleText> */}
           </Title>
           <TitleAndDescription>
 

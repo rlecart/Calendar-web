@@ -9,6 +9,8 @@ import RenderIf from '../components/RenderIf';
 
 import { API } from '../api';
 
+import LogoBig from '../resources/logo-big.png';
+
 const Background = styled.div`
     width: 100%;
     height: 100vh;
@@ -245,11 +247,9 @@ const SignUp = () => {
       <Background>
         <RightPanel>
           <TitleAndDescription>
-            <Title>
-              <TitleText>
-                Calendar Planer
-              </TitleText>
-            </Title>
+          <Title>
+            <img src={LogoBig} alt='Logo' />
+          </Title>
 
             <Description>
               <DescriptionText>
