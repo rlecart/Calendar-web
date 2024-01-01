@@ -11,6 +11,8 @@ import { X } from 'react-feather';
 import { CalendarDayDataInterface, CalendarEventDataInterface, CalendarStoreInterface, useCalendarStore } from '../stores/calendarStore';
 
 import RenderIf from './RenderIf';
+import axios from 'axios';
+import { API } from '../api';
 
 const ModalHeader = styled.div`
   display: flex;
@@ -182,6 +184,7 @@ interface ModalNewEventInterface {
 
 const ModalEvent = ({ show, type, eventData, handleClose }: ModalNewEventInterface) => {
   const [title, setTitle] = React.useState<string>('');
+  const [description, setDescription] = React.useState<string>('');
   const [color, setColor] = React.useState<string>('');
   const [date, setDate] = React.useState<string>('');
   const [startTime, setStartTime] = React.useState<string>('');
@@ -192,6 +195,7 @@ const ModalEvent = ({ show, type, eventData, handleClose }: ModalNewEventInterfa
 
   const setCalendarType = useCalendarStore((state: CalendarStoreInterface) => state.setCalendarType);
   const setCalendarDate = useCalendarStore((state: CalendarStoreInterface) => state.setCalendarDate);
+  const calendarDayData = useCalendarStore((state: CalendarStoreInterface) => state.calendarDayData);
   const setCalendarDayData = useCalendarStore((state: CalendarStoreInterface) => state.setCalendarDayData);
 
   const handleCloseModal = () => {
@@ -199,88 +203,104 @@ const ModalEvent = ({ show, type, eventData, handleClose }: ModalNewEventInterfa
     handleClose();
   }
 
-  const handleSubmitEvent = () => {
+  const handleSubmitEvent = async () => {
     setError('');
 
-    // if (type === 'new')
-    //   requete API new event;
-    // else if (type === 'edit')
-    //   requete API edit event
+    try {
 
-    const fakeDayData = {
-      dayOfMonth: 1,
-      month: 3,
-      year: 2023,
-      data: [
-        {
-          id: 1,
-          title: 'Sortir le chien',
-          description: 'Description',
-          startTime: '00:00',
-          endTime: '03:00',
-          notes: 'Notes',
-          color: 'rgba(160, 74, 61, 0.5)',
-          dayOfMonth: 1,
-          month: 3,
-          year: 2023,
-        },
-        {
-          id: 2,
-          title: 'Sport',
-          description: 'Description',
-          startTime: '03:30',
-          endTime: '05:30',
-          notes: 'Notes',
-          color: 'rgba(52, 93, 92, 0.5)',
-          dayOfMonth: 1,
-          month: 3,
-          year: 2023,
-        },
-        {
-          id: 3,
-          title: 'Étudier',
-          description: 'Description',
-          startTime: '05:30',
-          endTime: '07:30',
-          notes: 'Notes',
-          color: 'rgba(94, 94, 55, 0.5)',
-          dayOfMonth: 1,
-          month: 3,
-          year: 2023,
-        },
-      ]
+      const splittedDate = date.split('/');
+      const splittedStartTime = startTime.split(':');
+      const splittedEndTime = endTime.split(':');
+
+      const formattedStartTime = new Date(+splittedDate[2], +splittedDate[1] - 1, +splittedDate[0], +splittedStartTime[0], +splittedStartTime[1]).getTime();
+      const formattedEndTime = new Date(+splittedDate[2], +splittedDate[1] - 1, +splittedDate[0], +splittedEndTime[0], +splittedEndTime[1]).getTime();
+
+      if (type === 'new') {
+        const newEventRes = await axios.post(`${API}/event`, {
+          title,
+          description,
+          color,
+          date,
+          startTime: formattedStartTime,
+          endTime: formattedEndTime,
+          notes,
+          dayOfMonth: +splittedDate[0],
+          month: +splittedDate[1],
+          year: +splittedDate[2],
+        });
+        console.log('newEventRes', newEventRes)
+        if (newEventRes.status !== 200)
+          throw (newEventRes.status)
+
+        if (calendarDayData.dayOfMonth === +splittedDate[0]
+          && calendarDayData.month === +splittedDate[1]
+          && calendarDayData.year === +splittedDate[2]) {
+          const newDayData: CalendarDayDataInterface = {
+            dayOfMonth: +splittedDate[0],
+            month: +splittedDate[1],
+            year: +splittedDate[2],
+            data: [
+              ...calendarDayData.data,
+              newEventRes.data
+            ]
+          }
+          setCalendarDayData(newDayData);
+        }
+      }
+      else if (type === 'edit') {
+        if (!eventData)
+          throw ('eventData is null')
+
+        const editEventRes = await axios.put(`${API}/event/${eventData.id}`, {
+          title,
+          description,
+          color,
+          date,
+          startTime: formattedStartTime,
+          endTime: formattedEndTime,
+          notes,
+          dayOfMonth: +splittedDate[0],
+          month: +splittedDate[1],
+          year: +splittedDate[2],
+        });
+        console.log('editEventRes', editEventRes)
+        if (editEventRes.status !== 200)
+          throw (editEventRes.status)
+
+        if (calendarDayData.dayOfMonth === +splittedDate[0]
+          && calendarDayData.month === +splittedDate[1]
+          && calendarDayData.year === +splittedDate[2]) {
+          const newDayData: CalendarDayDataInterface = {
+            dayOfMonth: +splittedDate[0],
+            month: +splittedDate[1],
+            year: +splittedDate[2],
+            data: [
+              ...calendarDayData.data,
+              editEventRes.data
+            ]
+          }
+          setCalendarDayData(newDayData);
+        }
+      }
+
+      setCalendarDate({
+        dayOfMonth: +splittedDate[0],
+        month: +splittedDate[1],
+        year: +splittedDate[2],
+      })
+      setCalendarType('day');
+
+      handleCloseModal();
+    } catch (err) {
+      setError(`Une erreur est survenue : ${err}`);
     }
-
-    interface FakeResDayInterface {
-      status: number,
-      data: CalendarDayDataInterface,
-    }
-    const fakeResDay: FakeResDayInterface = {
-      status: 200,
-      data: fakeDayData,
-    }
-
-    if (fakeResDay.status !== 200) {
-      setError(`Une erreur est survenue : ${fakeResDay.data}`);
-      return;
-    }
-    setCalendarDayData(fakeResDay.data);
-
-    const dateSplitted = date.split('/');
-    setCalendarDate({
-      dayOfMonth: +(dateSplitted[0]),
-      month: +(dateSplitted[1]),
-      year: +(dateSplitted[2]),
-    })
-    setCalendarType('day');
-
-    handleCloseModal();
   }
 
   const resetAllFields = () => {
     setError('');
 
     setTitle('');
+    setDescription('');
     setColor('');
     setDate('');
     setStartTime('');
@@ -290,11 +310,15 @@ const ModalEvent = ({ show, type, eventData, handleClose }: ModalNewEventInterfa
 
   React.useEffect(() => {
     if (show === true && type === 'edit' && eventData) {
+      const formattedStartTime = new Date(eventData.startTime).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+      const formattedEndTime = new Date(eventData.endTime).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+
       setTitle(eventData.title);
+      setDescription(eventData.description);
       setColor(eventData.color);
       setDate(`${eventData.dayOfMonth.toString().padStart(2, '0')}/${eventData.month.toString().padStart(2, '0')}/${eventData.year}`);
-      setStartTime(eventData.startTime);
-      setEndTime(eventData.endTime);
+      setStartTime(formattedStartTime);
+      setEndTime(formattedEndTime);
       setNotes(eventData.notes);
     }
   }, [show, type, eventData])
@@ -347,9 +371,9 @@ const ModalEvent = ({ show, type, eventData, handleClose }: ModalNewEventInterfa
             />
 
             <FormInputText
-              placeholder='Couleur'
-              value={color}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setColor(e.target.value)}
+              placeholder='Description'
+              value={description}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDescription(e.target.value)}
             />
 
             <FormGroup>
@@ -413,6 +437,12 @@ const ModalEvent = ({ show, type, eventData, handleClose }: ModalNewEventInterfa
               </FormInputDatePicker>
 
             </FormGroup>
+
+            <FormInputText
+              placeholder='Couleur'
+              value={color}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setColor(e.target.value)}
+            />
 
             <FormInputTextArea
               placeholder='Notes'
