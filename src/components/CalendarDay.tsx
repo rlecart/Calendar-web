@@ -273,6 +273,7 @@ const CalendarDay = () => {
     handleShow();
   }
 
+
   return (
     <React.Fragment>
       <ModalEvent
@@ -345,26 +346,31 @@ const CalendarDay = () => {
           </EventsTimeScale>
 
           <EventsListWrapperAbsolute>
-            {calendarDayData?.data?.map((event: CalendarEventDataInterface, index: number) => (
-              <EventCard
-                key={index}
-                style={{
-                  backgroundColor: `${event.color}`,
-                  top: `${(parseInt(event.startTime.split(':')[0]) * timeLineHeightPerHour) + 52 + (parseInt(event.startTime.split(':')[1]) / 60 * timeLineHeightPerHour)}px`,
-                  bottom: `${(24 - parseInt(event.endTime.split(':')[0])) * timeLineHeightPerHour - 9 - (parseInt(event.endTime.split(':')[1]) / 60 * timeLineHeightPerHour)}px`
-                }}
-                onClick={() => handleEditEvent(event)}
-              >
-                <EventElems>
-                  <EventTitle>
-                    {event.title}
-                  </EventTitle>
-                  <EventTime>
-                    {event.startTime} - {event.endTime}
-                  </EventTime>
-                </EventElems>
-              </EventCard>
-            ))}
+            {calendarDayData?.data?.map((event: CalendarEventDataInterface, index: number) => {
+              const realStartTime = new Date(event.startTime);
+              const realEndTime = new Date(event.endTime);
+
+              return (
+                <EventCard
+                  key={index}
+                  style={{
+                    backgroundColor: `${event.color}`,
+                    top: `${(realStartTime.getHours() * timeLineHeightPerHour) + 52 + (realStartTime.getMinutes() / 60 * timeLineHeightPerHour)}px`,
+                    bottom: `${(24 - realEndTime.getHours()) * timeLineHeightPerHour - 9 - (realEndTime.getMinutes()) / 60 * timeLineHeightPerHour}px`
+                  }}
+                  onClick={() => handleEditEvent(event)}
+                >
+                  <EventElems>
+                    <EventTitle>
+                      {event.title}
+                    </EventTitle>
+                    <EventTime>
+                      {realStartTime.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })} - {realEndTime.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}
+                    </EventTime>
+                  </EventElems>
+                </EventCard>
+              )
+            })}
           </EventsListWrapperAbsolute>
 
           <RenderIf isTrue={new Date().getDate() === calendarDayData.dayOfMonth && new Date().getMonth() + 1 === calendarDayData.month && new Date().getFullYear() === calendarDayData.year}>
