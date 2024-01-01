@@ -499,11 +499,13 @@ const ModalEvent = ({ show, type, eventData, handleClose }: ModalNewEventInterfa
               </Alert>
             </RenderIf>
 
-            <FormDeleteButton
-              onClick={handleDeleteEvent}
-            >
-              Supprimer
-            </FormDeleteButton>
+            <RenderIf isTrue={type === 'edit' && eventData !== null}>
+              <FormDeleteButton
+                onClick={handleDeleteEvent}
+              >
+                Supprimer
+              </FormDeleteButton>
+            </RenderIf>
 
             <FormSubmitButton
               onClick={handleSubmitEvent}

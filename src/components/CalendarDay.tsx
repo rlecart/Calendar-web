@@ -227,7 +227,7 @@ const CalendarDay = () => {
     calendarMonthData.data.slice(28, 31),
   ]
 
-  const actualWeek = slicedCalendarData.find((week) => week.some((day: CalendarDayDataInterface) => day.dayOfMonth === calendarDayData.dayOfMonth));
+  const actualWeek = slicedCalendarData?.find((week) => week.some((day: CalendarDayDataInterface) => day.dayOfMonth === calendarDayData.dayOfMonth));
   console.log('actual week', actualWeek)
 
   const eventsTimeScaleRef = React.useRef<HTMLDivElement>(null);
