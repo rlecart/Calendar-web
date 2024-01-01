@@ -40,7 +40,7 @@ const UserDropdown = () => {
     else if (e === '2') {
       const logoutRes = axios.delete(`${API}/user/logout`)
       console.log('Déconnexion');
-      localStorage.removeItem('authenticated');
+      localStorage.removeItem('authentificated');
       resetCalendarStore();
       navigate('/login');
     }
