@@ -87,7 +87,7 @@ const BackButton = () => {
 
           <RenderIf isTrue={calendarType === 'year'}>
             <span>
-              {`Sélectionner une période`}
+              {`Personnaliser`}
             </span>
           </RenderIf>
 
